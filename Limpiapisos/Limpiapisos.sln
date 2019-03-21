@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.489
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Limpiapisos", "Limpiapisos\Limpiapisos.vcxproj", "{A7EBAE9C-75DC-4E13-A609-47615320E384}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A7EBAE9C-75DC-4E13-A609-47615320E384}.Debug|x64.ActiveCfg = Debug|x64
+		{A7EBAE9C-75DC-4E13-A609-47615320E384}.Debug|x64.Build.0 = Debug|x64
+		{A7EBAE9C-75DC-4E13-A609-47615320E384}.Debug|x86.ActiveCfg = Debug|Win32
+		{A7EBAE9C-75DC-4E13-A609-47615320E384}.Debug|x86.Build.0 = Debug|Win32
+		{A7EBAE9C-75DC-4E13-A609-47615320E384}.Release|x64.ActiveCfg = Release|x64
+		{A7EBAE9C-75DC-4E13-A609-47615320E384}.Release|x64.Build.0 = Release|x64
+		{A7EBAE9C-75DC-4E13-A609-47615320E384}.Release|x86.ActiveCfg = Release|Win32
+		{A7EBAE9C-75DC-4E13-A609-47615320E384}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {63376D0F-8676-43DF-9A9C-DF27E0CC5150}
+	EndGlobalSection
+EndGlobal
