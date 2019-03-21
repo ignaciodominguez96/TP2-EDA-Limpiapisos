@@ -32,6 +32,7 @@ main(int argc, char * argv[])
 			{
 				simulate_Simulation(simulation);
 			//	get_tickcount_Simulation(simulation); //mostrar por pantalla o como se desea el tickcount
+				destroy_Simulation(simulation);
 			}
 		}
 		else if (myData->mode == MODE_2)

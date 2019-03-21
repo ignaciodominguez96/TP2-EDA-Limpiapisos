@@ -129,6 +129,7 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="parser.c" />
     <ClCompile Include="Robot.c" />
+    <ClCompile Include="Simulation.c" />
     <ClCompile Include="Tile.c" />
   </ItemGroup>
   <ItemGroup>

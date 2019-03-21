@@ -14,7 +14,7 @@
 
 typedef struct
 {
-	robot_t	* robots;
+	//robot_t	* robots; en principio lo dejamos comentado hasta ver si hace falta
 	unsigned int cant_robots;
 	floor_t * floor;
 	unsigned int mode;
@@ -25,6 +25,6 @@ typedef struct
 simulation_t * create_Simulation(unsigned int cant_robots, unsigned int height, unsigned int width, unsigned int mode);
 bool	simulate_Simulation(simulation_t * simulation);
 unsigned int get_tickcount_Simulation(simulation_t * simulation);
-bool	destroy_Simulation(simulation_t * simulation);
+void	destroy_Simulation(simulation_t * simulation);
 
 #endif //SIMULATION_H
