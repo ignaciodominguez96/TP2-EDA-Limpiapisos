@@ -10,7 +10,6 @@ int
 main(int argc, char * argv[])
 {
 
-
 	if (parseCmdline(argc, argv, CALLBACK, myData))
 	{
 		intAllegro();
@@ -54,3 +53,6 @@ main(int argc, char * argv[])
 
 
 }
+
+
+

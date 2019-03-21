@@ -8,13 +8,13 @@
 
 typedef	struct
 {
-	bool tile;
+	bool state;
 
 }tile_t;
 
-void	wash_Tile(tile_t tile);
-void	mess_Tile(tile_t tile);
-bool	is_clean_Tile(tile_t tile);
-bool	is_dirty_Tile(tile_t tile);
+void	wash_Tile(tile_t * tile);
+void	mess_Tile(tile_t * tile);
+bool	is_clean_Tile(tile_t * tile);
+bool	is_dirty_Tile(tile_t * tile);
 
 #endif //TILE_H

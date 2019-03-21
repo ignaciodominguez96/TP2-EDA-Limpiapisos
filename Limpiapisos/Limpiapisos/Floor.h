@@ -18,6 +18,6 @@ floor_t * create_Floor(unsigned int height, unsigned int width);
 unsigned int get_height_Floor(floor_t * floor);
 unsigned int get_width_Floor(floor_t * floor);
 bool is_clear_Floor(floor_t * floor);
-bool	destroy_Floor(floor_t * floor);
+void	destroy_Floor(floor_t * floor);
 
 #endif //FLOOR_H

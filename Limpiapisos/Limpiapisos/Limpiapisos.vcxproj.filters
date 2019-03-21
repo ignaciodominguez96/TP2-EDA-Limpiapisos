@@ -41,5 +41,8 @@
     <ClCompile Include="pcmdl.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Robot.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

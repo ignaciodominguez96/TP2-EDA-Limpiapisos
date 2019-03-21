@@ -125,6 +125,7 @@
     <ClCompile Include="Floor.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="pcmdl.c" />
+    <ClCompile Include="Robot.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
