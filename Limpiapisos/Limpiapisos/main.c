@@ -8,7 +8,8 @@
 #include "Callback.h"
 #include "UserData.h"
 
-
+#define HISTOGRAM_SIZE 500
+#define CONDICION_DE_STOP (((histogram[robot_count-2])-(histogram[robot_count-1])) < 0.1)
 
 
 int
@@ -36,6 +37,7 @@ main(int argc, char * argv[])
 		else if (myData->mode == MODE_2)
 		{
 			unsigned int robot_count;
+			double histogram[HISTOGRAM_SIZE];
 
 			for (robot_count = 1; CONDICION_DE_STOP; robot_count++) //creo que esta relacionado CONDICION_STOP con el 0.1 entre n y n+1
 			{
@@ -51,7 +53,7 @@ main(int argc, char * argv[])
 					
 				}
 
-			//	histogram(robot_count) = tickcount_sum / CANT_SIMULATIONS_MODE_2; //ver como hacer la estructura para ir pusheando histogram
+				histogram[robot_count-1] = tickcount_sum / CANT_SIMULATIONS_MODE_2; //ver como hacer la estructura para ir pusheando histogram
 				
 			}
 
