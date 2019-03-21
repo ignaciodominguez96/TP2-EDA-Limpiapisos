@@ -44,7 +44,8 @@ main(int argc, char * argv[])
 
 				for (unsigned int i = 0; i < CANT_SIMULATIONS_MODE_2; i++)
 				{
-					simulation_t * simulation = create_Simulation(); //llenar parametros (distinto porque tiene robot_count entre otras cosas)
+					simulation_t * simulation = create_Simulation(robot_count, myData->height, myData->width, myData->mode); //llenar parametros
+
 					simulate_Simulation(simulation);
 					tickcount_sum += get_tickcount_Simulation(simulation);
 					destroy_Simulation(simulation);
@@ -55,7 +56,7 @@ main(int argc, char * argv[])
 				
 			}
 
-			show(histogram);
+			//show(histogram);
 		}
 
 	}
