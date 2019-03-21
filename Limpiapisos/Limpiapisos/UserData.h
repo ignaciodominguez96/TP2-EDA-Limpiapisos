@@ -5,10 +5,10 @@
 #include <stdbool.h>
 
 typedef struct {
-	int height;
-	int width;
-	int robotCount;
-	int mode;
+	unsigned int height;
+	unsigned int width;
+	unsigned int robotCount;
+	unsigned int mode;
 	bool heightSet;
 	bool widthSet;
 	bool robotSet;

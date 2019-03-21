@@ -24,7 +24,7 @@ main(int argc, char * argv[])
 
 		if (myData->mode == MODE_1)
 		{
-			simulation_t * simulation = create_Simulation(); //llenar parametros
+			simulation_t * simulation = create_Simulation(myData->robotCount, myData->height, myData->width, myData->mode); //llenar parametros
 
 			if (simulation != NULL)
 			{
