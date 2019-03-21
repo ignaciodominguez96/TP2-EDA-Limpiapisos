@@ -7,6 +7,7 @@
 #include "parser.h"
 #include "Callback.h"
 #include "UserData.h"
+#include "Random.h"
 
 #define HISTOGRAM_SIZE 500
 #define CONDICION_DE_STOP (((histogram[robot_count-2])-(histogram[robot_count-1])) < 0.1)
@@ -15,8 +16,7 @@
 int
 main(int argc, char * argv[])
 {
-	time_t t;
-	srand((unsigned)time(&t));
+	randomize(); //genera una nueva seed para rand
 
 	userData_t* myData;
 

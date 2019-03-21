@@ -3,6 +3,7 @@
 #include <math.h>
 
 #include "Robot.h"
+#include "Random.h"
 
 #define M_PI acos(-1.0)
 #define SHIFT_ANGLE_X 90
@@ -10,8 +11,9 @@
 #define DEGREES_TO_RAD (M_PI/180)
 
 //DECLARACION DE FUNCIONES AUXILIARES
-double rand_from_zero_to_max(double max);
-
+static bool	move_Robot(robot_t * robot, unsigned int pos_lim_x, unsigned int pos_lim_y);
+//ver si conviene que devuelva otra cosa y/o reciba mas parametros
+static void changedir_Robot(robot_t* robot);
 
 
 //FUNCIONES PRINCIPALES
@@ -24,9 +26,9 @@ create_Robot(unsigned int pos_lim_x, unsigned int pos_lim_y)
 
 	if (robot != NULL)
 	{
-		robot->pos.x = rand_from_zero_to_max((double)pos_lim_x);
-		robot->pos.y = rand_from_zero_to_max((double)pos_lim_y);
-		robot->angle = rand_from_zero_to_max((double)ANGLE_MAX);
+		robot->pos.x = randDoubleBetween(0.0, (double)pos_lim_x);
+		robot->pos.y = randDoubleBetween(0.0, (double)pos_lim_y);
+		robot->angle = randDoubleBetween(0.0, (double)ANGLE_MAX);
 
 	}
 	else
@@ -42,12 +44,38 @@ create_Robot(unsigned int pos_lim_x, unsigned int pos_lim_y)
 
 
 bool
+act_Robot(robot_t* robot, unsigned int pos_lim_x, unsigned int pos_lim_y)
+{
+	bool did_robot_move = false;
+
+	if (move_Robot(robot, pos_lim_x, pos_lim_y))
+	{
+		did_robot_move = true;
+		return did_robot_move;
+	}
+	else
+	{
+		changedir_Robot(robot);
+		return did_robot_move;
+	}
+}
+
+void	
+destroy_Robot(robot_t * robot)
+{
+	free(robot);
+	robot = NULL;
+
+}
+
+//FUNCIONES AUXILIARES
+static bool
 move_Robot(robot_t * robot, unsigned int pos_lim_x, unsigned int pos_lim_y)
 {
 
 	bool can_i_move_Robot = false;
 
-	#error "chequear si esta bien lo de lo mover con los angulos"
+#error "chequear si esta bien lo de lo mover con los angulos"
 
 	double pos_aux_x = robot->pos.x + cos((robot->angle - SHIFT_ANGLE_X)*DEGREES_TO_RAD);
 	double pos_aux_y = robot->pos.y + sen((robot->angle - SHIFT_ANGLE_Y)*DEGREES_TO_RAD);
@@ -64,18 +92,8 @@ move_Robot(robot_t * robot, unsigned int pos_lim_x, unsigned int pos_lim_y)
 
 }
 
-void	
-destroy_Robot(robot_t * robot)
+static void
+changedir_Robot(robot_t* robot)
 {
-	free(robot);
-	robot = NULL;
-
-}
-
-//FUNCIONES AUXILIARES
-double rand_from_zero_to_max(double max)
-{
-	double div = RAND_MAX / max;
-	return rand() / div;
-
+	robot->angle = randDoubleBetween(0.0, (double)ANGLE_MAX);
 }

@@ -118,6 +118,7 @@
     <ClInclude Include="Callback.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="parser.h" />
+    <ClInclude Include="Random.h" />
     <ClInclude Include="Robot.h" />
     <ClInclude Include="Simulation.h" />
     <ClInclude Include="Tile.h" />
@@ -128,6 +129,7 @@
     <ClCompile Include="Floor.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="parser.c" />
+    <ClCompile Include="Random.c" />
     <ClCompile Include="Robot.c" />
     <ClCompile Include="Simulation.c" />
     <ClCompile Include="Tile.c" />
