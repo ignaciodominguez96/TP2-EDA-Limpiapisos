@@ -48,41 +48,17 @@ int parseCallBack(const char* key, const char* value, void* userData)
 			}
 		}
 		else //option not valid
+		{
+			printf("%s\n", "Invalid Option");
 			return CB_ERR;
+		}
 	}
 
 	else
 	{
-
+		printf("%s\n", "This program does not accept parameters. Invalid input");
+		return CB_ERR;
 	}
 
 	return CB_SUXS;
 }
-
-
-
-
-
-
-/*
-static int validKey(const char* clave) //return 1 if key is valid
-{ 
-	if (!strcmp(clave, "height"))
-	{
-
-	}
-}
-
-static int validValue(const char* valor) { //return 1 if value is valid
-
-	if (strlen(valor) > (MAXLENGTH - 1))	//verifica el largo del valor
-	{
-		printf("Supero el limite de %d caracteres del valor\n", MAXLENGTH);
-		return CB_ERR;
-	}
-	else
-	{
-		//free space for validation
-		return CB_SUXS;
-	}
-}*/
