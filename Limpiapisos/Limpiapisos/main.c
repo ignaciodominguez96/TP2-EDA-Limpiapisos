@@ -2,16 +2,23 @@
 
 #include <stdlib.h>
 #include <iostream>
+#include <time.h>
 
 #include "Simulation.h"
-#include "pcmdl.h"
+#include "parser.h"
+#include "Callback.h"
+#include "UserData.h"
+
 
 int
 main(int argc, char * argv[])
 {
+	time_t t;
+	srand((unsigned)time(&t));
 
+	userData_t* myData;
 
-	if (parseCmdline(argc, argv, CALLBACK, myData))
+	if (parseCmdline(argc, argv, parseCallBack, myData) == 4 && myData->fullfiled == 4) //Igualado a la cantidad de opciones requeridas. En modo2 podrian ser 3
 	{
 		intAllegro();
 

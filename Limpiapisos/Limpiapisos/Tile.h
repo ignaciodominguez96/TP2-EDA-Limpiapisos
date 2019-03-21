@@ -8,7 +8,7 @@
 
 typedef	struct
 {
-	bool tile;
+	bool state;
 
 }tile_t;
 
