@@ -22,7 +22,7 @@ typedef struct
 
 }simulation_t;
 
-simulation_t * create_Simulation(robot_t * robots, unsigned int cant_robots, floor_t * floor, unsigned int mode);
+simulation_t * create_Simulation(unsigned int cant_robots, unsigned int height, unsigned int width, unsigned int mode);
 bool	simulate_Simulation(simulation_t * simulation);
 unsigned int get_tickcount_Simulation(simulation_t * simulation);
 bool	destroy_Simulation(simulation_t * simulation);

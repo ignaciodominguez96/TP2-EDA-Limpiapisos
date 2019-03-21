@@ -128,6 +128,7 @@
     <ClCompile Include="Floor.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="parser.c" />
+    <ClCompile Include="Robot.c" />
     <ClCompile Include="Tile.c" />
   </ItemGroup>
   <ItemGroup>

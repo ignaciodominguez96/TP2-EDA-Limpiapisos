@@ -1,13 +1,14 @@
 #pragma once
 
 #include <stdlib.h>
-#include <iostream>
 #include <time.h>
 
 #include "Simulation.h"
 #include "parser.h"
 #include "Callback.h"
 #include "UserData.h"
+
+
 
 
 int
@@ -29,7 +30,7 @@ main(int argc, char * argv[])
 			if (simulation != NULL)
 			{
 				simulate_Simulation(simulation);
-				cout << get_tickcount_Simulation(simulation); //mostrar por pantalla o como se desea el tickcount
+			//	get_tickcount_Simulation(simulation); //mostrar por pantalla o como se desea el tickcount
 			}
 		}
 		else if (myData->mode == MODE_2)
@@ -50,7 +51,7 @@ main(int argc, char * argv[])
 					
 				}
 
-				histogram(robot_count) = tickcount_sum / CANT_SIMULATIONS_MODE_2; //ver como hacer la estructura para ir pusheando histogram
+			//	histogram(robot_count) = tickcount_sum / CANT_SIMULATIONS_MODE_2; //ver como hacer la estructura para ir pusheando histogram
 				
 			}
 
