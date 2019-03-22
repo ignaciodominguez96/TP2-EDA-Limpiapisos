@@ -18,15 +18,16 @@ main(int argc, char * argv[])
 {
 	randomize(); //genera una nueva seed para rand
 
-	userData_t* myData;
+	userData_t* myData = createUserData();
 
-	if (parseCmdline(argc, argv, parseCallBack, myData) == 4 && myData->fullfiled == 4) //Igualado a la cantidad de opciones requeridas. En modo2 podrian ser 3
+	if (parseCmdline(argc, argv, parseCallBack, myData) == 4 && isDataFull(myData)) //Igualado a la cantidad de opciones requeridas. En modo2 podrian ser 3
 	{
 		intAllegro();
 
-		if (myData->mode == MODE_1)
+		if (getUserData(myData, MODE) == MODE_1)
 		{
-			simulation_t * simulation = create_Simulation(myData->robotCount, myData->height, myData->width, myData->mode); //llenar parametros
+			simulation_t * simulation = create_Simulation(getUserData(myData, ROBOTC), getUserData(myData, HEIGHT), 
+				getUserData(myData, WIDTH), MODE_1); //llenar parametros
 
 			if (simulation != NULL)
 			{
@@ -35,7 +36,7 @@ main(int argc, char * argv[])
 				destroy_Simulation(simulation);
 			}
 		}
-		else if (myData->mode == MODE_2)
+		else if (getUserData(myData, MODE) == MODE_2)
 		{
 			unsigned int robot_count;
 			double histogram[HISTOGRAM_SIZE];
@@ -47,7 +48,7 @@ main(int argc, char * argv[])
 
 				for (unsigned int i = 0; i < CANT_SIMULATIONS_MODE_2; i++)
 				{
-					simulation_t * simulation = create_Simulation(robot_count, myData->height, myData->width, myData->mode); //llenar parametros
+					simulation_t * simulation = create_Simulation(robot_count, getUserData(myData, HEIGHT), getUserData(myData, WIDTH), MODE_2);
 
 					simulate_Simulation(simulation);
 					tickcount_sum += get_tickcount_Simulation(simulation);
@@ -64,5 +65,6 @@ main(int argc, char * argv[])
 
 	}
 
-
+	destroyUserData(myData);
+	return 0;
 }

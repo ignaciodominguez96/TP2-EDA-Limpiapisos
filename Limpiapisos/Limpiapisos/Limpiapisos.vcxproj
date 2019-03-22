@@ -133,6 +133,7 @@
     <ClCompile Include="Robot.c" />
     <ClCompile Include="Simulation.c" />
     <ClCompile Include="Tile.c" />
+    <ClCompile Include="UserData.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

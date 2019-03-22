@@ -7,44 +7,41 @@
 int parseCallBack(const char* key, const char* value, void* userData)
 {
 	int tempValue = atoi(value);
+	userData_t* myData = (userData_t*)userData;
 
 	//checking if option is valid
 	if (key != NULL) //es opcion
 	{
-		if (!strcmp(key, "height") && 0 < tempValue && tempValue <= 70) //check if key is valid
+		if (!strcmp(key, "height") && 0 < tempValue && tempValue <= 70)
 		{
-			if (!(((userData_t*)userData)->heightSet))
+			if (!setUserData(myData, HEIGHT, tempValue))
 			{
-				((userData_t*)userData)->heightSet = true;
-				((userData_t*)userData)->height = tempValue;
-				((userData_t*)userData)->fullfiled++;
+				printf("%s\n", "Error: Option 'Height' has been set more than once");
+				return CB_ERR;
 			}
 		}
 		else if (!strcmp(key, "width") && 0 < tempValue && tempValue <= 100)
 		{
-			if (!(((userData_t*)userData)->widthSet))
+			if (!setUserData(myData, WIDTH, tempValue))
 			{
-				((userData_t*)userData)->widthSet = true;
-				((userData_t*)userData)->width = tempValue;
-				((userData_t*)userData)->fullfiled++;
+				printf("%s\n", "Error: Option 'Width' has been set more than once");
+				return CB_ERR;
 			}
 		}
 		else if (!strcmp(key, "robots") && 0 < tempValue)
 		{
-			if (!(((userData_t*)userData)->robotSet))
+			if (!setUserData(myData, ROBOTC, tempValue))
 			{
-				((userData_t*)userData)->robotSet = true;
-				((userData_t*)userData)->robotCount = tempValue;
-				((userData_t*)userData)->fullfiled++;
+				printf("%s\n", "Error: Option 'robots' has been set more than once");
+				return CB_ERR;
 			}
 		}
 		else if (!strcmp(key, "mode") && (tempValue == 1 || tempValue == 2))
 		{
-			if (!(((userData_t*)userData)->modeSet))
+			if (!setUserData(myData, MODE, tempValue))
 			{
-				((userData_t*)userData)->modeSet = true;
-				((userData_t*)userData)->mode = tempValue;
-				((userData_t*)userData)->fullfiled++;
+				printf("%s\n", "Error: Option 'mode' has been set more than once");
+				return CB_ERR;
 			}
 		}
 		else //option not valid
