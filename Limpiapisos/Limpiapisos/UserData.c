@@ -3,11 +3,15 @@
 
 userData_t* createUserData()
 {
-	userData_t* data = (userData_t*)malloc(sizeof(userData_t));
-	data->height = EMPTY;
-	data->width = EMPTY;
-	data->robotCount = EMPTY;
-	data->mode = EMPTY;
+	userData_t* data = NULL;
+	data = (userData_t*)malloc(sizeof(userData_t));
+	if (data != NULL)
+	{
+		data->height = EMPTY;
+		data->width = EMPTY;
+		data->robotCount = EMPTY;
+		data->mode = EMPTY;
+	}
 	return data;
 }
 

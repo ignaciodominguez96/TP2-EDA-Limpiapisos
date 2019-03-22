@@ -20,47 +20,51 @@ main(int argc, char * argv[])
 
 	userData_t* myData = createUserData();
 
-	if (parseCmdline(argc, argv, parseCallBack, myData) == 4 && isDataFull(myData)) //Igualado a la cantidad de opciones requeridas. En modo2 podrian ser 3
+	if (myData != NULL)
 	{
-		intAllegro();
-
-		if (getUserData(myData, MODE) == MODE_1)
+		if (parseCmdline(argc, argv, parseCallBack, myData) == 4 && isDataFull(myData)) //Igualado a la cantidad de opciones requeridas. En modo2 podrian ser 3
 		{
-			simulation_t * simulation = create_Simulation(getUserData(myData, ROBOTC), getUserData(myData, HEIGHT), 
-				getUserData(myData, WIDTH), MODE_1); //llenar parametros
+			intAllegro();
 
-			if (simulation != NULL)
+			if (getUserData(myData, MODE) == MODE_1)
 			{
-				simulate_Simulation(simulation);
-			//	get_tickcount_Simulation(simulation); //mostrar por pantalla o como se desea el tickcount
-				destroy_Simulation(simulation);
-			}
-		}
-		else if (getUserData(myData, MODE) == MODE_2)
-		{
-			unsigned int robot_count;
-			double histogram[HISTOGRAM_SIZE];
+				simulation_t * simulation = create_Simulation(getUserData(myData, ROBOTC), getUserData(myData, HEIGHT), 
+					getUserData(myData, WIDTH), MODE_1); //llenar parametros
 
-			for (robot_count = 1; CONDICION_DE_STOP; robot_count++) //creo que esta relacionado CONDICION_STOP con el 0.1 entre n y n+1
-			{
-
-				double tickcount_sum = 0.0;
-
-				for (unsigned int i = 0; i < CANT_SIMULATIONS_MODE_2; i++)
+				if (simulation != NULL)
 				{
-					simulation_t * simulation = create_Simulation(robot_count, getUserData(myData, HEIGHT), getUserData(myData, WIDTH), MODE_2);
-
 					simulate_Simulation(simulation);
-					tickcount_sum += get_tickcount_Simulation(simulation);
+				//	get_tickcount_Simulation(simulation); //mostrar por pantalla o como se desea el tickcount
 					destroy_Simulation(simulation);
+				}
+			}
+			else if (getUserData(myData, MODE) == MODE_2)
+			{
+				unsigned int robot_count;
+				double histogram[HISTOGRAM_SIZE];
+
+				for (robot_count = 1; CONDICION_DE_STOP; robot_count++) //creo que esta relacionado CONDICION_STOP con el 0.1 entre n y n+1
+				{
+
+					double tickcount_sum = 0.0;
+
+					for (unsigned int i = 0; i < CANT_SIMULATIONS_MODE_2; i++)
+					{
+						simulation_t * simulation = create_Simulation(robot_count, getUserData(myData, HEIGHT), getUserData(myData, WIDTH), MODE_2);
+
+						simulate_Simulation(simulation);
+						tickcount_sum += get_tickcount_Simulation(simulation);
+						destroy_Simulation(simulation);
 					
+					}
+
+					histogram[robot_count-1] = tickcount_sum / CANT_SIMULATIONS_MODE_2; //ver como hacer la estructura para ir pusheando histogram
+				
 				}
 
-				histogram[robot_count-1] = tickcount_sum / CANT_SIMULATIONS_MODE_2; //ver como hacer la estructura para ir pusheando histogram
-				
+				//show(histogram);
 			}
 
-			//show(histogram);
 		}
 
 	}
