@@ -49,6 +49,11 @@ get_width_Floor(floor_t * floor)
 	return floor->width;
 }
 
+tile_t* get_tile(floor_t* floor, int posx, int posy)
+{
+	return ((floor->tiles) + posy*(get_width_Floor(floor)) + posx);
+}
+
 bool
 is_clear_Floor(floor_t * floor)
 {

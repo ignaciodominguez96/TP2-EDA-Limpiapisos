@@ -44,6 +44,15 @@ create_Robots(unsigned int pos_lim_x, unsigned int pos_lim_y, int cantRobots)
 
 }
 
+double get_Robot_posx(robot_t* robot)
+{
+	return robot->pos.x;
+}
+
+double get_Robot_posy(robot_t* robot)
+{
+	return robot->pos.x;
+}
 
 bool
 act_Robot(robot_t* robot, unsigned int pos_lim_x, unsigned int pos_lim_y)
