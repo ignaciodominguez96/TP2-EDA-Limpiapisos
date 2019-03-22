@@ -18,18 +18,20 @@ static void changedir_Robot(robot_t* robot);
 
 //FUNCIONES PRINCIPALES
 robot_t * 
-create_Robot(unsigned int pos_lim_x, unsigned int pos_lim_y)
+create_Robots(unsigned int pos_lim_x, unsigned int pos_lim_y, int cantRobots)
 {
 	robot_t * robot = NULL;
 
-	robot = (robot_t *) malloc(sizeof(robot_t));
+	robot = (robot_t *) malloc(sizeof(robot_t)*cantRobots);
 
 	if (robot != NULL)
 	{
-		robot->pos.x = randDoubleBetween(0.0, (double)pos_lim_x);
-		robot->pos.y = randDoubleBetween(0.0, (double)pos_lim_y);
-		robot->angle = randDoubleBetween(0.0, (double)ANGLE_MAX);
-
+		for (int i = 0; i < cantRobots; i++)
+		{
+			(robot + i)->pos.x = randDoubleBetween(0.0, (double)pos_lim_x);
+			(robot + i)->pos.y = randDoubleBetween(0.0, (double)pos_lim_y);
+			(robot + i)->angle = randDoubleBetween(0.0, (double)ANGLE_MAX);
+		}
 	}
 	else
 	{
@@ -61,7 +63,7 @@ act_Robot(robot_t* robot, unsigned int pos_lim_x, unsigned int pos_lim_y)
 }
 
 void	
-destroy_Robot(robot_t * robot)
+destroy_Robots(robot_t * robot)
 {
 	free(robot);
 	robot = NULL;

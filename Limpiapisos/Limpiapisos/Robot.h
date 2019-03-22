@@ -22,9 +22,9 @@ typedef struct
 }robot_t;
 
 
-robot_t * create_Robot(unsigned int pos_lim_x, unsigned int pos_lim_y);	//ver si conviene que devuelva otra cosa y/o reciba mas parametros
+robot_t * create_Robots(unsigned int pos_lim_x, unsigned int pos_lim_y, int cantRobots);	//ver si conviene que devuelva otra cosa y/o reciba mas parametros
 bool act_Robot(robot_t* robot, unsigned int pos_lim_x, unsigned int pos_lim_y); //ver si conviene que devuelva otra cosa y/o reciba mas parametros
-void	destroy_Robot(robot_t * robot);	//ver si conviene que devuelva otra cosa y/o reciba mas parametros
+void	destroy_Robots(robot_t * robot);	//ver si conviene que devuelva otra cosa y/o reciba mas parametros
 
 
 #endif //ROBOT_H
