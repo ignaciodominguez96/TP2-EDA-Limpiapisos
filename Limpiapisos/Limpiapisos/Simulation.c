@@ -47,10 +47,14 @@ bool	simulate_Simulation(simulation_t * simulation)
 		wash_Tile(get_tile(simulation->floor, (int)floor(get_Robot_posx(tempRobot)), (int)floor(get_Robot_posy(tempRobot))));	// Se limpia la baldosa donde este el robot, se haya movido o no
 	}
 }
+
+
 unsigned int get_tickcount_Simulation(simulation_t * simulation)
 {
 	return simulation->tickcount;
 }
+
+
 void	destroy_Simulation(simulation_t * simulation)
 {
 	free(simulation->floor);
