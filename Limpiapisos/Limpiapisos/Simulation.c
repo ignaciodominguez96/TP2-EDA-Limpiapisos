@@ -34,9 +34,10 @@ simulation_t * create_Simulation(unsigned int cant_robots, unsigned int height, 
 			newSim = NULL;
 		}
 	}
-	
+
 	return newSim;
 }
+
 bool	simulate_Simulation(simulation_t * simulation)
 {
 	//		Cada vez que hay un "tick" tiene que pasar lo siguiente:

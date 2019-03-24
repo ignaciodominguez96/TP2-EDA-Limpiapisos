@@ -6,7 +6,7 @@
 
 
 
-int draw_floor(ALLEGRO_DISPLAY *display, floor_t * floor)
+void draw_floor(ALLEGRO_DISPLAY *display, floor_t * floor)
 {
     ALLEGRO_BITMAP *Lines;
 
@@ -38,17 +38,12 @@ int draw_floor(ALLEGRO_DISPLAY *display, floor_t * floor)
 }
 
 
-int Draw_robots(ALLEGRO_DISPLAY *display, simulation_t * simulation)
+void draw_robots(ALLEGRO_DISPLAY *display, simulation_t * simulation)
 {
   ALLEGRO_BITMAP * Robot;
 
   Robot = al_create_bitmap(30, 30);
 
-  if(!Robot)//protejo en caso de error
-    {
-        printf("Failed to create Robot bitmap!\n");
-        return -1;
-    }
 
     al_set_target_bitmap(Robot);
     al_clear_to_color(al_map_rgb(0, 0, 255));
@@ -56,8 +51,9 @@ int Draw_robots(ALLEGRO_DISPLAY *display, simulation_t * simulation)
 
     for(i=0 ,i<simulation->cant_robots, i++)
     {
-      al_draw_bitmap(Robot, simulation->robots->x, simulation->robots->y, 0);
+      al_draw_bitmap(Robot, simulation->robots+i->x, simulation->robots+i->y, 0);
     }
+
 }
 
 

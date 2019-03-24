@@ -62,6 +62,8 @@ main(int argc, char * argv[])
 
 	userData_t* myData = createUserData();
 
+	int end = 1;
+
 	if (myData != NULL)
 	{
 		if (parseCmdline(argc, argv, parseCallBack, myData) == 4 && isDataFull(myData)) //Igualado a la cantidad de opciones requeridas. En modo2 podrian ser 3
@@ -74,7 +76,14 @@ main(int argc, char * argv[])
 
 				if (simulation != NULL)
 				{
-					simulate_Simulation(simulation);
+					while (end)
+					{
+						simulate_Simulation(simulation);
+						draw_floor(display, simulation->floor);
+						draw_robots(display, simulation);
+						usleep (1000);
+						end = 
+
 				//	get_tickcount_Simulation(simulation); //mostrar por pantalla o como se desea el tickcount
 					destroy_Simulation(simulation);
 				}
