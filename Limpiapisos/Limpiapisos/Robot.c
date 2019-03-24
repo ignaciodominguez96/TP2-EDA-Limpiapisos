@@ -17,7 +17,7 @@ static void changedir_Robot(robot_t* robot);
 
 
 //FUNCIONES PRINCIPALES
-robot_t * 
+robot_t *
 create_Robots(unsigned int pos_lim_x, unsigned int pos_lim_y, int cantRobots)
 {
 	robot_t * robot = NULL;
@@ -51,7 +51,7 @@ double get_Robot_posx(robot_t* robot)
 
 double get_Robot_posy(robot_t* robot)
 {
-	return robot->pos.x;
+	return robot->pos.y;
 }
 
 bool
@@ -71,7 +71,7 @@ act_Robot(robot_t* robot, unsigned int pos_lim_x, unsigned int pos_lim_y)
 	}
 }
 
-void	
+void
 destroy_Robots(robot_t * robot)
 {
 	free(robot);
