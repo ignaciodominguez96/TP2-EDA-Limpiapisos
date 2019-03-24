@@ -39,6 +39,12 @@
     <ClInclude Include="Random.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Output.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Images.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Floor.c">
@@ -66,6 +72,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UserData.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Output.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Images.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

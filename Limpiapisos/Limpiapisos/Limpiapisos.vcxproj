@@ -117,6 +117,8 @@
   <ItemGroup>
     <ClInclude Include="Callback.h" />
     <ClInclude Include="Floor.h" />
+    <ClInclude Include="Images.h" />
+    <ClInclude Include="Output.h" />
     <ClInclude Include="parser.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Robot.h" />
@@ -127,7 +129,9 @@
   <ItemGroup>
     <ClCompile Include="Callback.c" />
     <ClCompile Include="Floor.c" />
+    <ClCompile Include="Images.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="Output.c" />
     <ClCompile Include="parser.c" />
     <ClCompile Include="Random.c" />
     <ClCompile Include="Robot.c" />
