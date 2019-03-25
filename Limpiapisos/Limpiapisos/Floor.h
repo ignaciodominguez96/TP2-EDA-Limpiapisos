@@ -17,7 +17,7 @@ typedef struct
 floor_t * create_Floor(unsigned int height, unsigned int width);
 unsigned int get_height_Floor(floor_t * floor);
 unsigned int get_width_Floor(floor_t * floor);
-tile_t* get_tile(floor_t* floor, int posx, int posy);
+tile_t* get_tile(floor_t * floor, int posx, int posy);
 bool is_clear_Floor(floor_t * floor);
 void	destroy_Floor(floor_t * floor);
 

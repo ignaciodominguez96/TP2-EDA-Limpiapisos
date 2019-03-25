@@ -16,7 +16,7 @@ create_Floor(unsigned int height, unsigned int width)
 		floor->height = height;
 		floor->width = width;
 		floor->tiles = (tile_t *)malloc(sizeof(tile_t)*height*width);
-		
+
 		if (floor->tiles != NULL)
 		{
 			for (int i = 0; i < height*width; i++)
@@ -30,9 +30,9 @@ create_Floor(unsigned int height, unsigned int width)
 			free(floor);
 			floor = NULL;
 		}
-	
+
 	}
-	
+
 	return floor;
 
 }
@@ -49,7 +49,7 @@ get_width_Floor(floor_t * floor)
 	return floor->width;
 }
 
-tile_t* get_tile(floor_t* floor, int posx, int posy)
+tile_t * get_tile(floor_t* floor, int posx, int posy)
 {
 	return ((floor->tiles) + posy*(get_width_Floor(floor)) + posx);
 }

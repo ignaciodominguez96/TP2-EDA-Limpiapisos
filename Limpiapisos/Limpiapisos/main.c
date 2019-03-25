@@ -8,6 +8,7 @@
 #include "Callback.h"
 #include "UserData.h"
 #include "Random.h"
+#include "allegro.h"
 
 #define HISTOGRAM_SIZE 500
 #define CONDICION_DE_STOP (((histogram[robot_count-2])-(histogram[robot_count-1])) < 0.1)
@@ -81,8 +82,13 @@ main(int argc, char * argv[])
 						simulate_Simulation(simulation);
 						draw_floor(display, simulation->floor);
 						draw_robots(display, simulation);
+						al_clean_file(display, simulation->floor)
+						if(is_clear_Floor(simulation->floor))
+						{
+								end = 0;
+						}
 						usleep (1000);
-						end = 
+					}
 
 				//	get_tickcount_Simulation(simulation); //mostrar por pantalla o como se desea el tickcount
 					destroy_Simulation(simulation);
