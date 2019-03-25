@@ -37,13 +37,11 @@ main(int argc, char * argv[])
 				if (getUserData(myData, MODE) == MODE_1)
 				{
 					simulation_t * simulation = create_Simulation(getUserData(myData, ROBOTC), getUserData(myData, HEIGHT),
-						getUserData(myData, WIDTH), MODE_1); //llenar parametros
+						getUserData(myData, WIDTH), MODE_1, myAllegro); //llenar parametros
 
 
 
 					#error "para mi hay que dimensionar aca...multiplicar por una unidad"
-
-					ALLEGRO_DISPLAY * display = al_create_display(myData->width, myData->height);
 
 					if (simulation != NULL)
 					{
