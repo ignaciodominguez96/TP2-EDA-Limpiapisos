@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="allegro.h" />
     <ClInclude Include="Callback.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="Images.h" />
@@ -127,6 +128,7 @@
     <ClInclude Include="UserData.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="allegro.c" />
     <ClCompile Include="Callback.c" />
     <ClCompile Include="Floor.c" />
     <ClCompile Include="Images.c" />
