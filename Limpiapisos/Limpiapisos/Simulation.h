@@ -6,7 +6,6 @@
 #include <stdbool.h>
 #include "Robot.h"
 #include "Floor.h"
-#include "Output.h"
 
 #define	MODE_1	1
 #define	MODE_2	2
