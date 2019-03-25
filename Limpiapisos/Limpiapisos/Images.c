@@ -5,7 +5,7 @@
 
 
 ALLEGRO_BITMAP *
-load_image_at_size(char* image_name, int size_x, int size_y);
+resize_image(char* image_name, int resize_x, int resize_y);
 
 
 
@@ -19,7 +19,7 @@ create_images(void)
 		return NULL;
 	}
 
-	ALLEGRO_BITMAP* image_tile_clean = load_image_at_size(ROOT_IMAGE_TILE_CLEAN, UNITY_TILE, UNITY_TILE);
+	ALLEGRO_BITMAP* image_tile_clean = resize_image(ROOT_IMAGE_TILE_CLEAN, UNITY_TILE, UNITY_TILE);
 
 	if (image_tile_clean == NULL)
 	{
@@ -28,7 +28,7 @@ create_images(void)
 		return NULL;
 	}
 
-	ALLEGRO_BITMAP* image_tile_dirty = load_image_at_size(ROOT_IMAGE_TILE_DIRTY, UNITY_TILE, UNITY_TILE);
+	ALLEGRO_BITMAP* image_tile_dirty = resize_image(ROOT_IMAGE_TILE_DIRTY, UNITY_TILE, UNITY_TILE);
 
 	if (image_tile_dirty == NULL)
 	{
@@ -38,7 +38,7 @@ create_images(void)
 		return NULL;
 	}
 
-	ALLEGRO_BITMAP* image_robot = load_image_at_size(ROOT_IMAGE_TILE_CLEAN, UNITY_ROBOT, UNITY_ROBOT);
+	ALLEGRO_BITMAP* image_robot = resize_image(ROOT_IMAGE_TILE_CLEAN, UNITY_ROBOT, UNITY_ROBOT);
 
 	if (image_robot == NULL)
 	{
@@ -73,34 +73,37 @@ destroy_images(images_t * images)
 
 
 ALLEGRO_BITMAP * 
-load_image_at_size(char* image_name, int size_x, int size_y)
+resize_image(char* image_name, int resize_x, int resize_y)
 {
-	ALLEGRO_BITMAP * image = NULL;
-	ALLEGRO_BITMAP * current_target = NULL;
+	ALLEGRO_BITMAP * image_to_resize = NULL;
+	ALLEGRO_BITMAP * actual_bitmap = NULL;
 	ALLEGRO_BITMAP * resized_image = NULL;
 
-	current_target = al_get_target_bitmap(); //salva el target original para no perderlo
+	actual_bitmap = al_get_target_bitmap(); //salva el target original para no perderlo
 
-	image = al_load_bitmap(image_name);
-	if (image == NULL)
+	image_to_resize = al_load_bitmap(image_name);
+
+	if (image_to_resize == NULL)
 	{
 		return NULL;
 	}
 
-	resized_image = al_create_bitmap(size_x, size_y);
+	resized_image = al_create_bitmap(resize_x, resize_y);
+	
 	if (resized_image == NULL)
 	{
-		al_destroy_bitmap(image);
+		al_destroy_bitmap(image_to_resize);
 		return NULL;
 
 
 	}
 
 	al_set_target_bitmap(resized_image);
-	al_draw_scaled_bitmap(image, 0, 0, al_get_bitmap_width(image), al_get_bitmap_height(image),
-		0, 0, size_x, size_y, 0);
+	al_draw_scaled_bitmap(image_to_resize, 0, 0,
+						 al_get_bitmap_width(image_to_resize), al_get_bitmap_height(image_to_resize), 0, 0,
+						 resize_x, resize_y, 0);
 
-	al_set_target_bitmap(current_target); //vuelve al target original
-	al_destroy_bitmap(image);
+	al_set_target_bitmap(actual_bitmap); //vuelve al target original
+	al_destroy_bitmap(image_to_resize);
 	return resized_image;
 }
