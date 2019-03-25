@@ -21,6 +21,62 @@
 #define HISTOGRAM_COLOR_REFERENCE ""
 #define	HISTOGRAM_COLOR_AXIS	""
 
+allegroStruct_t* allegro_setup(allegroStruct_t* usrAllegro)
+{
+	usrAllegro->event_queue = NULL;
+	usrAllegro->display = NULL;
+	usrAllegro->timer = NULL;
+
+	if (!al_init())//inicio allegro
+	{
+		printf("Could not initialize Allegro!\n");
+		return NULL;
+	}
+
+
+	usrAllegro->display = al_create_display(960, 800);
+	if (!(usrAllegro->display))//inicio display
+	{
+		printf("Could not initialize Display!.\n");
+		return NULL;
+	}
+
+	usrAllegro->event_queue = al_create_event_queue();
+	if (!(usrAllegro->event_queue))//inicio cola de eventos
+	{
+		printf("Could not initialize event queue!.\n");
+		al_destroy_display(usrAllegro->display);
+		return NULL;
+	}
+
+	usrAllegro->timer = al_create_timer(1 / FPS); //FIJARSE POR QUE NO LO RECONOCE (y si conviene 60, esto parece copiado de otro prog)
+	if (!(usrAllegro->timer))//inicio timer IMPORTANTE FUNCIONA  A 60 FPS
+	{
+		printf("Failed to create timer!\n");
+		al_destroy_event_queue(usrAllegro->event_queue);
+		al_destroy_display(usrAllegro->display);
+		return NULL;
+	}
+
+	al_set_window_title(usrAllegro->display, "Limpiapisos");
+
+	al_register_event_source(usrAllegro->event_queue, al_get_display_event_source(usrAllegro->display));
+	al_register_event_source(usrAllegro->event_queue, al_get_timer_event_source(usrAllegro->timer));
+
+	al_start_timer(usrAllegro->timer);
+
+	return usrAllegro;
+
+}
+
+void allegro_destroy(allegroStruct_t* usrAllegro)
+{
+	al_destroy_display(usrAllegro->display);
+	al_destroy_event_queue(usrAllegro->event_queue);
+	al_destroy_timer(usrAllegro->timer);
+	usrAllegro = NULL;
+}
+
 void update_tiles_Output(floor_t * floor, image_tiles_t * images_tiles)
 {
 	unsigned int height = floor->height;

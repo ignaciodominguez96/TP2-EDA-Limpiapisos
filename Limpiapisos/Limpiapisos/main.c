@@ -8,7 +8,7 @@
 #include "Callback.h"
 #include "UserData.h"
 #include "Random.h"
-#include "allegro.h"
+#include "Output.h"
 
 #define HISTOGRAM_SIZE 500
 #define CONDICION_DE_STOP (((histogram[robot_count-2])-(histogram[robot_count-1])) < 0.1)
@@ -23,7 +23,6 @@ main(int argc, char * argv[])
 
 	allegroStruct_t* myAllegro = allegro_setup(myAllegro);
 
-	
 
 	if (myAllegro != NULL)
 	{
