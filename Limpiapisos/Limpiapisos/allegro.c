@@ -1,3 +1,4 @@
+/*
 #include <stdio.h>
 #include "Simulation.h"
 #include "Floor.h"
@@ -135,3 +136,4 @@ void al_clean_file(ALLEGRO_DISPLAY * display, floor_t * floor)
 
 
 }
+*/

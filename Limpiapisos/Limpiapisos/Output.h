@@ -12,8 +12,12 @@
 #include <allegro5\allegro_font.h>
 #include <allegro5\allegro_image.h>
 
-#include "Simulation.h"
+//#include "Simulation.h"
 #include "Images.h"
+#include "Floor.h"
+#include "Robot.h"
+
+#define FPS 60
 
 typedef struct
 {
@@ -29,7 +33,7 @@ allegroStruct_t* allegro_setup(allegroStruct_t* usrAllegro);
 void allegro_destroy(allegroStruct_t* usrAllegro);
 void update_tiles_Output(floor_t * floor, image_tiles_t * images_tiles);
 void update_robots_Output(robot_t* robots, unsigned int cant_robots, ALLEGRO_BITMAP* image_robot);
-void update_display_Output(simulation_t* simulation, images_t* images);
+//void update_display_Output(simulation_t* simulation, images_t* images);
 bool print_histogram_Output(ALLEGRO_DISPLAY* display, unsigned int cant_simulations, unsigned long* tick_per_simulation);
 
 

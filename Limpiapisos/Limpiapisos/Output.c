@@ -1,6 +1,6 @@
 #define _USE_MATH_DEFINES
 #include "math.h"
-
+#include <stdio.h>
 #include "Dimension.h"
 #include "Output.h"
 
@@ -79,8 +79,11 @@ allegroStruct_t* allegro_setup(allegroStruct_t* usrAllegro)
 void allegro_destroy(allegroStruct_t* usrAllegro)
 {
 	al_destroy_display(usrAllegro->display);
-	al_destroy_event_queue(usrAllegro->event_queue);
+	usrAllegro->display = NULL;
 	al_destroy_timer(usrAllegro->timer);
+	usrAllegro->timer = NULL;
+	al_destroy_event_queue(usrAllegro->event_queue);
+	usrAllegro->event_queue = NULL;
 	free(usrAllegro);
 	usrAllegro = NULL;
 }
@@ -92,7 +95,7 @@ void update_tiles_Output(floor_t * floor, image_tiles_t * images_tiles)
 
 	
 	bool is_clean_tile;
-	position_t position;
+	//position_t position;
 
 	
 	for (unsigned int i = 0; i < height; i++) //actualiza todas las baldosas segun sus estados.
@@ -103,7 +106,7 @@ void update_tiles_Output(floor_t * floor, image_tiles_t * images_tiles)
 			is_clean_tile = is_clean_Tile((floor->tiles)+ i + j * width );
 		//	position = getPisoLocation(baldosas, i, j);
 
-			#error "creo que no es necesario"
+			//#error "creo que no es necesario"
 
 			if (is_clean_tile == true)
 			{
@@ -130,7 +133,7 @@ void update_robots_Output(robot_t* robots, unsigned int cant_robots, ALLEGRO_BIT
 	position_t vector_vertex_head3;
 	
 	//unsigned int unit = (robots->unit);
-	#error "creo que no es necesario"
+	//#error "creo que no es necesario"
 	
 	double angle = 0.0;
 
@@ -150,13 +153,13 @@ void update_robots_Output(robot_t* robots, unsigned int cant_robots, ALLEGRO_BIT
 			al_color_name(VECTOR_COLOR), VECTOR_THICKNESS);
 
 		vector_vertex_head1.x = vector.x - UNITY_VECTOR_HEAD*cos(M_PI_4);
-		vector_vertex_head1.y = vector.y - UNITY_VECTOR_HEAD*sen(M_PI_4);
+		vector_vertex_head1.y = vector.y - UNITY_VECTOR_HEAD*sin(M_PI_4);
 
 		vector_vertex_head2.x = vector.x + UNITY_VECTOR_HEAD*cos(M_PI_4);
-		vector_vertex_head2.y = vector.y + UNITY_VECTOR_HEAD*sen(M_PI_4);
+		vector_vertex_head2.y = vector.y + UNITY_VECTOR_HEAD*sin(M_PI_4);
 
 		vector_vertex_head3.x = vector.x + UNITY_VECTOR_HEAD*cos(M_PI_4);
-		vector_vertex_head3.y = vector.y - UNITY_VECTOR_HEAD*sen(M_PI_4);
+		vector_vertex_head3.y = vector.y - UNITY_VECTOR_HEAD*sin(M_PI_4);
 
 		al_draw_filled_triangle(vector_vertex_head1.x, vector_vertex_head1.y,
 								vector_vertex_head2.x, vector_vertex_head2.y,
@@ -166,16 +169,16 @@ void update_robots_Output(robot_t* robots, unsigned int cant_robots, ALLEGRO_BIT
 }
 
 
-void update_display_Output(simulation_t* simulation, images_t* images)
+/*void update_display_Output(simulation_t* simulation, images_t* images)
 {
 
 	update_tiles_Output(simulation->floor, images->images_tiles);
 	update_robots_Output(simulation->robots, simulation->cant_robots, images->image_robot);
 
-}
+}*/
 
 
-#error "cambiar nombre variables"
+//#error "cambiar nombre variables"
 
 bool 
 print_histogram_Output( ALLEGRO_DISPLAY* display, unsigned int cant_simulations, unsigned long* tick_per_simulation)

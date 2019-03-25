@@ -96,10 +96,10 @@ move_Robot(robot_t * robot, unsigned int pos_lim_x, unsigned int pos_lim_y)
 
 	bool can_i_move_Robot = false;
 
-#error "chequear si esta bien lo de lo mover con los angulos"
+//#error "chequear si esta bien lo de lo mover con los angulos"
 
 	double pos_aux_x = robot->pos.x + cos(DEGREES_TO_RAD(robot->angle - SHIFT_ANGLE_X));
-	double pos_aux_y = robot->pos.y + sen(DEGREES_TO_RAD(robot->angle - SHIFT_ANGLE_Y));
+	double pos_aux_y = robot->pos.y + sin(DEGREES_TO_RAD(robot->angle - SHIFT_ANGLE_Y));
 
 	if ((pos_aux_x >= 0) && (pos_aux_x < pos_lim_x) && (pos_aux_y >= 0) && (pos_aux_y < pos_lim_y))
 	{

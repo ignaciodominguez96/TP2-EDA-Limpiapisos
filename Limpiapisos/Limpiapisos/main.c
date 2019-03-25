@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <time.h>
 
 #include "Simulation.h"
@@ -17,11 +18,13 @@
 int
 main(int argc, char * argv[])
 {
+	printf("Hola\n");
 	int end = 1;
 
 	randomize(); //genera una nueva seed para rand
 
-	allegroStruct_t* myAllegro = allegro_setup(myAllegro);
+	allegroStruct_t* myAllegro = NULL;
+	myAllegro = allegro_setup(myAllegro);
 
 	if (myAllegro != NULL)
 	{
@@ -39,12 +42,13 @@ main(int argc, char * argv[])
 					simulation_t * simulation = create_Simulation(getUserData(myData, ROBOTC), getUserData(myData, HEIGHT),
 						getUserData(myData, WIDTH), MODE_1, myAllegro); //llenar parametros
 
-					#error "para mi hay que dimensionar aca...multiplicar por una unidad"
+					//#error "para mi hay que dimensionar aca...multiplicar por una unidad"
 
 					if (simulation != NULL)
 					{
 						simulate_Simulation(simulation);
 						tickCount = get_tickcount_Simulation(simulation); //mostrar por pantalla o como se desea el tickcount
+						printf("%d\n", tickCount);
 						destroy_Simulation(simulation);
 					}
 					
@@ -61,7 +65,8 @@ main(int argc, char * argv[])
 
 						for (unsigned int i = 0; i < CANT_SIMULATIONS_MODE_2; i++)
 						{
-							simulation_t * simulation = create_Simulation(robot_count, getUserData(myData, HEIGHT), getUserData(myData, WIDTH), MODE_2);
+							simulation_t * simulation = create_Simulation(robot_count, getUserData(myData, HEIGHT), getUserData(myData, WIDTH), MODE_2,
+								myAllegro);
 
 							simulate_Simulation(simulation);
 							tickcount_sum += get_tickcount_Simulation(simulation);
