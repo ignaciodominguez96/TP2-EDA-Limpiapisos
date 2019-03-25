@@ -41,13 +41,26 @@ simulation_t * create_Simulation(unsigned int cant_robots, unsigned int height, 
 
 bool	simulate_Simulation(simulation_t * simulation)
 {
-	//		Cada vez que hay un "tick" tiene que pasar lo siguiente:
-	for (int i = 0; i < simulation->cant_robots; i++)
+	while (!(is_clear_Floor(simulation->floor))) //	Cada vez que hay un "tick" tiene que pasar lo siguiente:
 	{
-		robot_t* tempRobot = simulation->robots + i;	// Se agarra un robot de los que existan
-		act_Robot(tempRobot, get_width_Floor(simulation->floor), get_height_Floor(simulation->floor));	//	El robot se mueve o cambia de direccion
-		wash_Tile(get_tile(simulation->floor, (int)floor(get_Robot_posx(tempRobot)), (int)floor(get_Robot_posy(tempRobot))));	// Se limpia la baldosa donde este el robot, se haya movido o no
+		for (int i = 0; i < simulation->cant_robots; i++)
+		{
+			if(simulation->tickcount == 0)
+				wash_Tile(get_tile(simulation->floor, (int)floor(get_Robot_posx(tempRobot)), (int)floor(get_Robot_posy(tempRobot))));
+			robot_t* tempRobot = simulation->robots + i;	// Se agarra un robot de los que existan
+			act_Robot(tempRobot, get_width_Floor(simulation->floor), get_height_Floor(simulation->floor));	//	El robot se mueve o cambia de direccion
+			wash_Tile(get_tile(simulation->floor, (int)floor(get_Robot_posx(tempRobot)), (int)floor(get_Robot_posy(tempRobot))));	// Se limpia la baldosa donde este el robot, se haya movido o no
+		}
+		draw_floor(simulation->usrAllegro->display, simulation->floor); //corregir la doble entrada
+		draw_robots(simulation->usrAllegro->display, simulation);
+		al_clean_file(simulation->usrAllegro->display, simulation->floor);
+
+		(simulation->tickcount)++;
+
+		al_rest(0.1); //usar def
 	}
+
+	return 0;
 }
 
 

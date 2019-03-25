@@ -23,7 +23,6 @@ main(int argc, char * argv[])
 
 	allegroStruct_t* myAllegro = allegro_setup(myAllegro);
 
-
 	if (myAllegro != NULL)
 	{
 
@@ -36,31 +35,19 @@ main(int argc, char * argv[])
 
 				if (getUserData(myData, MODE) == MODE_1)
 				{
+					unsigned int tickCount = 0;
 					simulation_t * simulation = create_Simulation(getUserData(myData, ROBOTC), getUserData(myData, HEIGHT),
 						getUserData(myData, WIDTH), MODE_1, myAllegro); //llenar parametros
-
-
 
 					#error "para mi hay que dimensionar aca...multiplicar por una unidad"
 
 					if (simulation != NULL)
 					{
-						while (end)	//Esto deberia estar dentro de simulate_simulation si no me equivoco!!
-						{
-							simulate_Simulation(simulation);
-							draw_floor(display, simulation->floor);
-							draw_robots(display, simulation);
-							al_clean_file(display, simulation->floor);
-							if(is_clear_Floor(simulation->floor))
-							{
-									end = 0;
-							}
-							usleep (1000);
-						}
-
-					//	get_tickcount_Simulation(simulation); //mostrar por pantalla o como se desea el tickcount
+						simulate_Simulation(simulation);
+						tickCount = get_tickcount_Simulation(simulation); //mostrar por pantalla o como se desea el tickcount
 						destroy_Simulation(simulation);
 					}
+					
 				}
 				else if (getUserData(myData, MODE) == MODE_2)
 				{
