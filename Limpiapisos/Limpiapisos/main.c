@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+
+#include "Dimension.h"
 #include "Simulation.h"
 #include "parser.h"
 #include "Callback.h"
@@ -44,7 +46,7 @@ main(int argc, char * argv[])
 
 					#error "para mi hay que dimensionar aca...multiplicar por una unidad"
 
-					ALLEGRO_DISPLAY * display = al_create_display(myData->width, myData->height);
+					ALLEGRO_DISPLAY * display = al_create_display(myData->width * UNITY_TILE, myData->height * UNITY_TILE);
 
 					if (simulation != NULL)
 					{

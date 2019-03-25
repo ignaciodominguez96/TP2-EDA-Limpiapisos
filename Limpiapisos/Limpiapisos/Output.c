@@ -21,7 +21,8 @@
 #define HISTOGRAM_COLOR_REFERENCE ""
 #define	HISTOGRAM_COLOR_AXIS	""
 
-void update_tiles_Output(floor_t * floor, image_tiles_t * images_tiles)
+void 
+update_tiles_Output(floor_t * floor, image_tiles_t * images_tiles)
 {
 	unsigned int height = floor->height;
 	unsigned int width = floor->width;
@@ -55,7 +56,8 @@ void update_tiles_Output(floor_t * floor, image_tiles_t * images_tiles)
 }
 
 
-void update_robots_Output(robot_t* robots, unsigned int cant_robots, ALLEGRO_BITMAP* image_robot)
+void
+update_robots_Output(robot_t* robots, unsigned int cant_robots, ALLEGRO_BITMAP* image_robot)
 {
 	double position_x = 0.0;
 	double position_y = 0.0;
@@ -102,7 +104,8 @@ void update_robots_Output(robot_t* robots, unsigned int cant_robots, ALLEGRO_BIT
 }
 
 
-void update_display_Output(simulation_t* simulation, images_t* images)
+void 
+update_display_Output(simulation_t* simulation, images_t* images)
 {
 
 	update_tiles_Output(simulation->floor, images->images_tiles);
@@ -217,3 +220,97 @@ print_histogram_Output( ALLEGRO_DISPLAY* display, unsigned int cant_simulations,
 }
 
 
+#error "no se si funciona la funcion, estoy moldeando"
+unsigned long
+simulation_Mode1(simulation_t * simulation, images_t* images)
+{
+	int count_iteration = 0;
+	double position_x_robot = 0;
+	double position_y_robot = 0;
+
+	unsigned int height = (simulation->floor)->height;
+	unsigned int width = (simulation->floor)->width;
+	unsigned int cant_robots = simulation->cant_robots;
+
+	robot_t * robots = simulation->robots;
+
+	tile_t * tiles = (simulation->floor)->tiles;
+	
+
+	bool count_aux = true;
+	bool finish = false;
+
+	for (unsigned int k = 0; k < (simulation->cant_robots); k++) //Chequea si la posicion en la que empiezan todos los robots ya limpia las baldosas
+	{
+		position_x_robot = ((robots + k)->pos).x;
+		position_y_robot = ((robots + k)->pos).y;
+
+	#error "KE"
+		((piso_t*)((simulation->piso) + (int)(simulation->width)*(int)((posRobY + ROBOT_SIZE(unit) / 2.0) / (unit)) + (int)((posRobX + ROBOT_SIZE(unit) / 2.0) / unit)))->state = true;
+	}
+
+	for (unsigned int i = 0; (i < height) && (count_aux); i++)
+	{
+		for (unsigned int j = 0; (j < width) && (count_aux); j++)
+		{
+			count_aux = is_clean_Tile(tiles + i + j * width);
+		}
+
+
+		if (i == (height - 1))
+		{
+			return 0;
+		}
+	}
+
+
+	while (finish == false)
+	{
+
+
+		for (unsigned int i = 0; i < cant_robots; i++)
+		{
+			position_x_robot = ((robots + i)->pos).x;
+			position_y_robot = ((robots + i)->pos).y;
+
+
+			act_Robot(robots + i, width, height);
+			
+			#error "KE"
+			
+			((piso_t*)((simulation->piso) + (int)(simulation->width)*(int)((posRobY + ROBOT_SIZE(unit) / 2.0) / (unit)) + (int)((posRobX + ROBOT_SIZE(unit) / 2.0) / unit)))->state = true;
+
+
+			update_display_Output(simulation, images);
+
+
+
+		}
+
+
+		al_rest(TIME_BTW_UPDATES);
+		al_flip_display();
+
+		for (unsigned int i = 0; (i < height) && (count_aux); i++)
+		{
+			for (unsigned int j = 0; (j < width) && (count_aux); j++)
+			{
+				count_aux = is_clean_Tile(tiles + i + j * width);
+
+			}
+
+			if (i == (height - 1))
+			{
+				finish = true;
+			}
+		}
+
+
+
+
+		count_iteration++;
+		count_aux = true;
+	}
+
+	return count_iteration;
+}
