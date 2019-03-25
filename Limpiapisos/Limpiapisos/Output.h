@@ -15,6 +15,10 @@
 #include "Simulation.h"
 #include "Images.h"
 
+#define TIME_BTW_UPDATES 0.1 //seg
+
+
+
 typedef struct
 {
 
