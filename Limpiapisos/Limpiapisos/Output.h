@@ -19,6 +19,10 @@
 
 #define FPS 60
 
+#define TIME_BTW_UPDATES 0.1 //seg
+
+
+
 typedef struct
 {
 
