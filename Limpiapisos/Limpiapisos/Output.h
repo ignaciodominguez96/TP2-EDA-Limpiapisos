@@ -16,10 +16,11 @@
 #include "Images.h"
 
 
+
 void update_tiles_Output(floor_t * floor, image_tiles_t * images_tiles);
 void update_robots_Output(robot_t* robots, unsigned int cant_robots, ALLEGRO_BITMAP* image_robot);
 void update_display_Output(simulation_t* simulation, images_t* images);
-
+bool print_histogram_Output(ALLEGRO_DISPLAY* display, unsigned int cant_simulations, unsigned long* tick_per_simulation);
 
 
 

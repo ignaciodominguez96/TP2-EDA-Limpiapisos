@@ -8,8 +8,18 @@
 #define DEGREES_TO_RAD(x) (((x)*(M_PI))/180.0)
 
 
-#define COLOR_VECTOR "black"
-#define	THICKNESS_VECTOR 0.8	//<=0
+#define VECTOR_COLOR "black"
+#define	VECTOR_THICKNESS 0.8	//<=0
+
+#define REFACTOR_HISTOGRAM_TICK_SPACE	(1/11.0)
+#define REFACTOR_HISTOGRAM_TICK_PER_SPACE	(1/10.0)
+
+#define	HISTOGRAM_FILE_FONT	""
+#define HISOGRAM_COLOR_BAR	""
+#define	HISTOGRAM_COLOR_FONT	""
+#define HISTOGRAM_COLOR_BACK ""
+#define HISTOGRAM_COLOR_REFERENCE ""
+#define	HISTOGRAM_COLOR_AXIS	""
 
 void update_tiles_Output(floor_t * floor, image_tiles_t * images_tiles)
 {
@@ -72,7 +82,8 @@ void update_robots_Output(robot_t* robots, unsigned int cant_robots, ALLEGRO_BIT
 		vector.x = position_x + UNITY_VECTOR*cos(angle);
 		vector.y = position_y - UNITY_VECTOR*sin(angle);
 
-		al_draw_line((vector.x)+(UNITY_ROBOT)/2.0, (vector.y) + (UNITY_ROBOT)/2.0, vector.x, vector.y, al_color_name(COLOR_VECTOR), THICKNESS_VECTOR);
+		al_draw_line((vector.x)+(UNITY_ROBOT)/2.0, (vector.y) + (UNITY_ROBOT)/2.0, vector.x, vector.y,
+			al_color_name(VECTOR_COLOR), VECTOR_THICKNESS);
 
 		vector_vertex_head1.x = vector.x - UNITY_VECTOR_HEAD*cos(M_PI_4);
 		vector_vertex_head1.y = vector.y - UNITY_VECTOR_HEAD*sen(M_PI_4);
@@ -85,7 +96,7 @@ void update_robots_Output(robot_t* robots, unsigned int cant_robots, ALLEGRO_BIT
 
 		al_draw_filled_triangle(vector_vertex_head1.x, vector_vertex_head1.y,
 								vector_vertex_head2.x, vector_vertex_head2.y,
-								vector_vertex_head3.x, vector_vertex_head3.y, al_color_name(COLOR_VECTOR));
+								vector_vertex_head3.x, vector_vertex_head3.y, al_color_name(VECTOR_COLOR));
 		
 	}
 }
@@ -100,6 +111,109 @@ void update_display_Output(simulation_t* simulation, images_t* images)
 }
 
 
+#error "cambiar nombre variables"
 
+bool 
+print_histogram_Output( ALLEGRO_DISPLAY* display, unsigned int cant_simulations, unsigned long* tick_per_simulation)
+{
+
+	bool can_print;
+
+	ALLEGRO_FONT* font = al_load_ttf_font(HISTOGRAM_FILE_FONT, UNITY_FONT_LETTER, 0);
+	
+	if (font == NULL)
+	{
+		can_print = false;
+	}
+	else
+	{
+		al_set_target_backbuffer(display);
+		al_clear_to_color(al_color_name(HISTOGRAM_COLOR_BACK)); //pinta el display.
+
+
+		unsigned int height = al_get_display_height(display);
+		unsigned int width = al_get_display_width(display);
+
+		double plane_width = width - 2.0*UNITY_FONT_SPACE; //le resto dos para que quede un cuadrado donde escribir las axis
+		double plane_height = height - 2.0*UNITY_FONT_SPACE;
+
+		double tick_space = plane_height*REFACTOR_HISTOGRAM_TICK_SPACE;
+		unsigned long max_tick = tick_per_simulation[0];
+		unsigned long ticks_per_space = max_tick* REFACTOR_HISTOGRAM_TICK_PER_SPACE;
+
+
+		double tick_number_y = 0.0;
+
+		//imprime los numeros sobre el eje de ticks.
+		for (int j = 1; j <= 10; j++)
+		{
+			tick_number_y = height - (UNITY_FONT_SPACE)-j * tick_space;
+			al_draw_textf(font, al_color_name(HISTOGRAM_COLOR_FONT), (UNITY_FONT_SPACE) / 2.0,
+								tick_number_y, ALLEGRO_ALIGN_CENTRE, "%lu", j*ticks_per_space);
+		}
+		
+		al_draw_text(font, al_color_name(HISTOGRAM_COLOR_REFERENCE), (UNITY_FONT_SPACE) / 2.0, (UNITY_FONT_SPACE) / 2.0,
+							ALLEGRO_ALIGN_CENTRE, "Count Ticks");
+
+
+		double bar_width = plane_width / (double)(cant_simulations + 1);
+		double bar_space = bar_width / (double)(cant_simulations - 1);
+
+
+		al_draw_line(UNITY_FONT_SPACE, height - UNITY_FONT_SPACE, width - UNITY_FONT_SPACE,
+					height - UNITY_FONT_SPACE, al_color_name(HISTOGRAM_COLOR_AXIS), 2.0);
+		//Dibuja el eje donde se representa el numero de robots
+
+		al_draw_line(UNITY_FONT_SPACE, height - UNITY_FONT_SPACE, UNITY_FONT_SPACE, UNITY_FONT_SPACE,
+					al_color_name(HISTOGRAM_COLOR_AXIS), 2.0);
+		//dibuja el eje donde se representa el numero de Ticks.
+
+		double upper_left_corner_x = 0.0;
+		double upper_left_corner_y = 0.0;
+		double lower_right_corner_x = 0.0;
+		double lower_right_corner_y = 0.0;
+
+		double number_x = 0.0;
+
+		for (unsigned int i = 0; i < cant_simulations; i++)
+		{
+			upper_left_corner_x = (UNITY_FONT_SPACE)+i * (bar_width + bar_space);
+			upper_left_corner_y = (height - (UNITY_FONT_SPACE)) - ((tick_per_simulation[i]) / ((double)ticks_per_space))*tick_space;
+			lower_right_corner_x = upper_left_corner_x + bar_space;
+			lower_right_corner_y = height - UNITY_FONT_SPACE;
+
+			al_draw_filled_rectangle(upper_left_corner_x, upper_left_corner_y, lower_right_corner_x, lower_right_corner_y,
+								al_color_name(HISOGRAM_COLOR_BAR));
+			//Dibuja la barra correspondiente al robot
+
+			number_x = (upper_left_corner_x + lower_right_corner_x) / 2.0;
+
+			al_draw_textf(font, al_color_name(HISTOGRAM_COLOR_FONT),
+						number_x, height - ((UNITY_FONT_SPACE) / 2.0), ALLEGRO_ALIGN_CENTRE, "%d", i + 1);
+			//imprime el numero de robots abajo de la barra correspondiente.
+			
+			al_draw_text(font, al_color_name(HISTOGRAM_COLOR_REFERENCE),
+				width - (UNITY_FONT_SPACE) / 2.0, height - width - (UNITY_FONT_SPACE) / 2.0, height - (UNITY_FONT_SPACE) / 2.0,
+					ALLEGRO_ALIGN_CENTRE, "Cant Robots");
+	
+
+			can_print = true;
+		
+		}
+
+		
+		
+		
+		al_destroy_font(font);
+
+		
+	}
+
+
+	return can_print;
+
+	
+
+}
 
 
