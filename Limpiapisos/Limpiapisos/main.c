@@ -23,6 +23,8 @@ main(int argc, char * argv[])
 
 	allegroStruct_t* myAllegro = allegro_setup(myAllegro);
 
+	
+
 	if (myAllegro != NULL)
 	{
 
@@ -30,13 +32,19 @@ main(int argc, char * argv[])
 
 		if (myData != NULL)
 		{
-			if (parseCmdline(argc, argv, parseCallBack, myData) == 4 && isDataFull(myData)) //Igualado a la cantidad de opciones requeridas. En modo2 podrian ser 3
+			if ((parseCmdLine(argc, argv, parseCallBack, myData) == 4) && isDataFull(myData)) //Igualado a la cantidad de opciones requeridas. En modo2 podrian ser 3
 			{
 
 				if (getUserData(myData, MODE) == MODE_1)
 				{
 					simulation_t * simulation = create_Simulation(getUserData(myData, ROBOTC), getUserData(myData, HEIGHT),
 						getUserData(myData, WIDTH), MODE_1); //llenar parametros
+
+
+
+					#error "para mi hay que dimensionar aca...multiplicar por una unidad"
+
+					ALLEGRO_DISPLAY * display = al_create_display(myData->width, myData->height);
 
 					if (simulation != NULL)
 					{
@@ -45,7 +53,7 @@ main(int argc, char * argv[])
 							simulate_Simulation(simulation);
 							draw_floor(display, simulation->floor);
 							draw_robots(display, simulation);
-							al_clean_file(display, simulation->floor)
+							al_clean_file(display, simulation->floor);
 							if(is_clear_Floor(simulation->floor))
 							{
 									end = 0;

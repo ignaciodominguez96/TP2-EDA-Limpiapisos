@@ -1,11 +1,12 @@
-#include "Output.h"
-
 #define _USE_MATH_DEFINES
 #include "math.h"
 
+#include "Dimension.h"
+#include "Output.h"
+
+
 #define DEGREES_TO_RAD(x) (((x)*(M_PI))/180.0)
 
-#define	M_PI_4	(M_PI / 4.0)
 
 #define COLOR_VECTOR "black"
 #define	THICKNESS_VECTOR 0.8	//<=0
@@ -25,7 +26,7 @@ void update_tiles_Output(floor_t * floor, image_tiles_t * images_tiles)
 		for (unsigned int j = 0; j < width; j++)
 		{
 
-			is_clean_tile = is_clean_Tile(floor->height + i + j * width );
+			is_clean_tile = is_clean_Tile((floor->tiles)+ i + j * width );
 		//	position = getPisoLocation(baldosas, i, j);
 
 			#error "creo que no es necesario"
@@ -68,19 +69,19 @@ void update_robots_Output(robot_t* robots, unsigned int cant_robots, ALLEGRO_BIT
 		angle = DEGREES_TO_RAD(angle);
 		al_draw_bitmap(image_robot, position_x, position_y, 0); //dibuja el robot en su posicion del display
 
-		vector.x = position_x + cos(angle);
-		vector.y = position_y - sin(angle);
+		vector.x = position_x + UNITY_VECTOR*cos(angle);
+		vector.y = position_y - UNITY_VECTOR*sin(angle);
 
-		al_draw_line((vector.x)/2.0, (vector.y)/ 2.0, vector.x, vector.y, al_color_name(COLOR_VECTOR), THICKNESS_VECTOR);
+		al_draw_line((vector.x)+(UNITY_ROBOT)/2.0, (vector.y) + (UNITY_ROBOT)/2.0, vector.x, vector.y, al_color_name(COLOR_VECTOR), THICKNESS_VECTOR);
 
-		vector_vertex_head1.x = vector.x - cos(M_PI_4)/(10.0);
-		vector_vertex_head1.y = vector.y - sen(M_PI_4) / (10.0);
+		vector_vertex_head1.x = vector.x - UNITY_VECTOR_HEAD*cos(M_PI_4);
+		vector_vertex_head1.y = vector.y - UNITY_VECTOR_HEAD*sen(M_PI_4);
 
-		vector_vertex_head2.x = vector.x + cos(M_PI_4) / (10.0);
-		vector_vertex_head2.y = vector.y + sen(M_PI_4) / (10.0);
+		vector_vertex_head2.x = vector.x + UNITY_VECTOR_HEAD*cos(M_PI_4);
+		vector_vertex_head2.y = vector.y + UNITY_VECTOR_HEAD*sen(M_PI_4);
 
-		vector_vertex_head3.x = vector.x + cos(M_PI_4) / (10.0);
-		vector_vertex_head3.y = vector.y - sen(M_PI_4) / (10.0);
+		vector_vertex_head3.x = vector.x + UNITY_VECTOR_HEAD*cos(M_PI_4);
+		vector_vertex_head3.y = vector.y - UNITY_VECTOR_HEAD*sen(M_PI_4);
 
 		al_draw_filled_triangle(vector_vertex_head1.x, vector_vertex_head1.y,
 								vector_vertex_head2.x, vector_vertex_head2.y,

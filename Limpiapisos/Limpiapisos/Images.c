@@ -1,6 +1,12 @@
 #pragma once
 
 #include	"Images.h"
+#include	"Dimension.h"
+
+
+ALLEGRO_BITMAP *
+load_image_at_size(char* image_name, int size_x, int size_y);
+
 
 
 images_t * 
@@ -13,7 +19,7 @@ create_images(void)
 		return NULL;
 	}
 
-	ALLEGRO_BITMAP* image_tile_clean = load_image_at_size(ROOT_IMAGE_TILE_CLEAN, UNITY, UNITY);
+	ALLEGRO_BITMAP* image_tile_clean = load_image_at_size(ROOT_IMAGE_TILE_CLEAN, UNITY_TILE, UNITY_TILE);
 
 	if (image_tile_clean == NULL)
 	{
@@ -22,7 +28,7 @@ create_images(void)
 		return NULL;
 	}
 
-	ALLEGRO_BITMAP* image_tile_dirty = load_image_at_size(ROOT_IMAGE_TILE_DIRTY, UNITY, UNITY);
+	ALLEGRO_BITMAP* image_tile_dirty = load_image_at_size(ROOT_IMAGE_TILE_DIRTY, UNITY_TILE, UNITY_TILE);
 
 	if (image_tile_dirty == NULL)
 	{
@@ -32,7 +38,7 @@ create_images(void)
 		return NULL;
 	}
 
-	ALLEGRO_BITMAP* image_robot = load_image_at_size(ROOT_IMAGE_TILE_CLEAN, UNITY/2.0, UNITY/2.0);
+	ALLEGRO_BITMAP* image_robot = load_image_at_size(ROOT_IMAGE_TILE_CLEAN, UNITY_ROBOT, UNITY_ROBOT);
 
 	if (image_robot == NULL)
 	{
@@ -59,8 +65,8 @@ create_images(void)
 void 
 destroy_images(images_t * images)
 {
-	al_destroy_bitmap(images->images_tiles->image_tile_clean);
-	al_destroy_bitmap(images->images_tiles->image_tile_dirty));
+	al_destroy_bitmap((images->images_tiles)->image_tile_clean);
+	al_destroy_bitmap((images->images_tiles)->image_tile_dirty);
 	al_destroy_bitmap(images->image_robot);
 	free(images);
 }

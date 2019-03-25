@@ -117,6 +117,7 @@
   <ItemGroup>
     <ClInclude Include="allegro.h" />
     <ClInclude Include="Callback.h" />
+    <ClInclude Include="Dimension.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="Images.h" />
     <ClInclude Include="Output.h" />

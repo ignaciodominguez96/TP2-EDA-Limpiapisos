@@ -104,9 +104,9 @@ void draw_robots(ALLEGRO_DISPLAY *display, simulation_t * simulation)
     al_clear_to_color(al_map_rgb(0, 0, 255));
     al_set_target_bitmap(al_get_backbuffer(display));
 
-    for(i=0 ,i < simulation->cant_robots, i++)
+    for(unsigned int i=0 ; i < simulation->cant_robots; i++)
     {
-      al_draw_bitmap(Robot, simulation->robots+i->x, simulation->robots+i->y, 0);
+      al_draw_bitmap(Robot, (((simulation->robots)+i)->pos).x, (((simulation->robots) + i)->pos).y, 0);
     }
 
 }
@@ -118,16 +118,20 @@ void al_clean_file(ALLEGRO_DISPLAY * display, floor_t * floor)
 
   cleantile = al_create_bitmap((960/floor->width), (800/floor->height));
 
+  unsigned int height = floor->height;
+  unsigned int width = floor->width;
 
-    al_set_target_bitmap(cleantile);
-    al_clear_to_color(al_map_rgb(255, 255, 255));
-    al_set_target_bitmap(al_get_backbuffer(display));
+	al_set_target_bitmap(cleantile);
+	al_clear_to_color(al_map_rgb(255, 255, 255));
+	al_set_target_bitmap(al_get_backbuffer(display));
 
-  for(i=0, i < (height*width), i++)
+  for(unsigned int i=0; i < (height*width); i++)
   {
     if (floor -> tiles +1)
     {
       al_draw_bitmap(cleantile, 960/floor->width * (floor->width % i), 800/floor->height * (floor->width/i), 0);
     }
   }
+
+
 }

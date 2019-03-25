@@ -10,7 +10,7 @@ typedef	struct
 {
 	bool state;
 
-}tile_t;
+} tile_t;
 
 void	wash_Tile(tile_t * tile);
 void	mess_Tile(tile_t * tile);

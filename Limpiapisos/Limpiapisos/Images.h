@@ -13,7 +13,14 @@
 #define ROOT_IMAGE_TILE_DIRTY ""
 #define ROOT_IMAGE_ROBOT ""
 
-#define UNITY 1.0
+
+
+typedef struct
+{
+	ALLEGRO_BITMAP* image_tile_clean;
+	ALLEGRO_BITMAP* image_tile_dirty;
+}image_tiles_t;
+
 
 typedef struct
 {
@@ -23,11 +30,6 @@ typedef struct
 }images_t;
 
 
-typedef struct
-{
-	ALLEGRO_BITMAP* image_tile_clean;
-	ALLEGRO_BITMAP* image_tile_dirty;
-}image_tiles_t;
 
 
 
