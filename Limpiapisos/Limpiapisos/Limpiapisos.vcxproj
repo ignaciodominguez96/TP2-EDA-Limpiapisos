@@ -128,7 +128,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Axis.h" />
     <ClInclude Include="Callback.h" />
+    <ClInclude Include="Colors.h" />
     <ClInclude Include="Dimension.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="Images.h" />
@@ -138,10 +140,12 @@
     <ClInclude Include="Robot.h" />
     <ClInclude Include="Simulation.h" />
     <ClInclude Include="Tile.h" />
+    <ClInclude Include="Type_fonts.h" />
     <ClInclude Include="UserData.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Callback.c" />
+    <ClCompile Include="Axis.c" />
     <ClCompile Include="Floor.c" />
     <ClCompile Include="Images.c" />
     <ClCompile Include="main.c" />

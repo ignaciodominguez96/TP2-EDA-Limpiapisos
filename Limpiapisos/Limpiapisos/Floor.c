@@ -16,15 +16,16 @@ create_Floor(unsigned int height, unsigned int width)
 		floor->height = height;
 		floor->width = width;
 		floor->tiles = NULL;
-		floor->tiles = (tile_t *)malloc(sizeof(tile_t)*height*width);
+		bool * tiles = (bool *)malloc(sizeof(bool)*height*width);
 
-		if (floor->tiles != NULL)
+		if (tiles != NULL)
 		{
 			for (unsigned int i = 0; i < (height*width); i++)
 			{
-				mess_Tile( floor->tiles + i);
+				mess_Tile( tiles + i);
 			}
 
+			floor->tiles = tiles;
 		}
 		else
 		{
@@ -50,7 +51,7 @@ get_width_Floor(floor_t * floor)
 	return floor->width;
 }
 
-tile_t * get_tile(floor_t* floor, int posx, int posy)
+bool * get_tile(floor_t* floor, int posx, int posy)
 {
 	return ((floor->tiles) + posy*(get_width_Floor(floor)) + posx);
 }

@@ -10,7 +10,7 @@
 #define	MODE_1	1
 #define	MODE_2	2
 
-#define CANT_SIMULATIONS_MODE_2 1000
+#define CANT_SIMULATIONS_MODE_2 1000.0
 
 typedef struct
 {

@@ -55,27 +55,64 @@ main(int argc, char * argv[])
 				{
 					unsigned int robot_count = 0;
 					double histogram[HISTOGRAM_SIZE];
+					bool mode_2_finish = false;
+					simulation_t * simulation = NULL;
 
-					for (robot_count = 1; (robot_count < 3) || ((robot_count < 497) && (((histogram[robot_count - 2]) - (histogram[robot_count - 1])) >= 0.1)); robot_count++) //creo que esta relacionado CONDICION_STOP con el 0.1 entre n y n+1
+
+					for (robot_count = 1; mode_2_finish == false; robot_count++) //creo que esta relacionado CONDICION_STOP con el 0.1 entre n y n+1
 					{
-
+						
 						double tickcount_sum = 0.0;
 
 						for (unsigned int i = 0; i < CANT_SIMULATIONS_MODE_2; i++)
 						{
-							simulation_t * simulation = create_Simulation(robot_count, getUserData(myData, HEIGHT), getUserData(myData, WIDTH), MODE_2,
+							 simulation = create_Simulation(robot_count, getUserData(myData, HEIGHT), getUserData(myData, WIDTH), MODE_2,
 								myAllegro);
 
-							simulate_Simulation(simulation);
-							tickcount_sum += get_tickcount_Simulation(simulation);
-							destroy_Simulation(simulation);
+
+							if (simulation != NULL)
+							{
+								simulate_Simulation(simulation);
+								tickcount_sum += (double) get_tickcount_Simulation(simulation);
+								
+							}
+						
 
 						}
 
-						histogram[robot_count - 1] = tickcount_sum / CANT_SIMULATIONS_MODE_2; //ver como hacer la estructura para ir pusheando histogram
+						histogram[robot_count - 1] = (tickcount_sum / CANT_SIMULATIONS_MODE_2); //ver como hacer la estructura para ir pusheando histogram
+
+						if (robot_count < 497)
+						{
+							if (robot_count >= 2)
+							{
+								if (histogram[robot_count - 2] - histogram[robot_count - 1] >= 0.1)
+								{
+									mode_2_finish = false;
+								}
+								else
+								{
+									mode_2_finish = true;
+								}
+							}
+						}
+						else
+						{
+							mode_2_finish = true;
+						}
+
+
+
+						printf("Robot Count: %d ---- Tickcount expected : %f\n", robot_count , histogram[robot_count - 1]);
 					}
-					printf("%d\n", robot_count);
-					//show(histogram);
+					bool can_i_print = false;
+						
+					al_resize_display(myAllegro->display, 1000.0, 1200.0);
+					print_histogram_Output(robot_count - 1, histogram, myAllegro->display, "Robots", "Tiempo");
+					al_set_new_window_position(0.0, 0.0);
+					al_flip_display();
+					destroy_Simulation(simulation);
+
 				}
 
 				allegro_destroy(myAllegro);

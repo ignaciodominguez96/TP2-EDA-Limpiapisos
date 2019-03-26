@@ -1,14 +1,14 @@
 #include "Tile.h"
 
-void	wash_Tile(tile_t* tile) {
-	tile->state = 1;
+void	wash_Tile(bool* tile) {
+	*tile = true;
 }
-void	mess_Tile(tile_t* tile) {
-	tile->state = 0;
+void	mess_Tile(bool* tile) {
+	*tile = false;
 }
-bool	is_clean_Tile(tile_t* tile) {
-	return tile->state;
+bool	is_clean_Tile(bool* tile) {
+	return *tile;
 }
-bool	is_dirty_Tile(tile_t* tile) {
-	return !(tile->state);
+bool	is_dirty_Tile(bool* tile) {
+	return !(*tile);
 }

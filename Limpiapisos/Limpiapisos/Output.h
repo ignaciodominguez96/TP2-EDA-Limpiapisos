@@ -17,6 +17,9 @@
 #include "Floor.h"
 #include "Robot.h"
 
+#include "Axis.h"
+
+
 #define FPS 5.0
 
 typedef struct
@@ -34,7 +37,7 @@ allegroStruct_t* allegro_setup(allegroStruct_t* usrAllegro, unsigned int height,
 void allegro_destroy(allegroStruct_t* usrAllegro);
 void display_TickCount(unsigned int tickCount);
 void update_display_Output(floor_t * floor, robot_t * robots, unsigned int cant_robots, images_t* images);
-bool print_histogram_Output(ALLEGRO_DISPLAY* display, unsigned int cant_simulations, unsigned long* tick_per_simulation);
+void print_histogram_Output(unsigned int cant_robots, double * results, ALLEGRO_DISPLAY * display, char * axis_name_x, char *  axis_name_y);
 
 
 

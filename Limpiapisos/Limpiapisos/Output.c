@@ -2,7 +2,12 @@
 #include "math.h"
 #include <stdio.h>
 #include "Dimension.h"
+#include "Colors.h"
+#include "Type_fonts.h"
+
 #include "Output.h"
+
+
 
 
 #define DEGREES_TO_RAD(x) (((x)*(M_PI))/180.0)
@@ -10,18 +15,11 @@
 #define SHIFT_ANGLE_X 90
 #define SHIFT_ANGLE_Y 90
 
-#define VECTOR_COLOR "black"
 
+#define REFACTOR_HISTOGRAM_TICK_SPACE	(1/100.0)
+#define REFACTOR_HISTOGRAM_TICK_PER_SPACE	(1/50.0)
 
-#define REFACTOR_HISTOGRAM_TICK_SPACE	(1/11.0)
-#define REFACTOR_HISTOGRAM_TICK_PER_SPACE	(1/10.0)
-
-#define	HISTOGRAM_FILE_FONT	"Starjedi.ttf"
-#define HISOGRAM_COLOR_BAR	"green"
-#define	HISTOGRAM_COLOR_FONT	"hotpink"
-#define HISTOGRAM_COLOR_BACK "black"
-#define HISTOGRAM_COLOR_REFERENCE "lightblue"
-#define	HISTOGRAM_COLOR_AXIS	"white"
+#define TOLERANCE_FONT_ROBOT 28
 
 
 
@@ -48,7 +46,6 @@ allegroStruct_t* allegro_setup(allegroStruct_t* usrAllegro, unsigned int height,
 			printf("Could not initialize Allegro!\n");
 			return NULL;
 		}
-
 
 		usrAllegro->display = al_create_display(UNITY_TILE*width, UNITY_TILE*height);
 		
@@ -132,110 +129,70 @@ void update_display_Output(floor_t * floor, robot_t * robots, unsigned int cant_
 }
 
 
-//#error "cambiar nombre variables"
 
-bool 
-print_histogram_Output( ALLEGRO_DISPLAY* display, unsigned int cant_simulations, unsigned long* tick_per_simulation)
+
+
+
+
+#error "cambiar nombre variables"
+
+void print_histogram_Output(unsigned int cant_robots, double * results,  ALLEGRO_DISPLAY * display, char * axis_name_x, char *  axis_name_y)
 {
 
-	bool can_print;
 
-	ALLEGRO_FONT* font = al_load_ttf_font(HISTOGRAM_FILE_FONT, UNITY_FONT_LETTER, 0);
-	
-	if (font == NULL)
+	axis_t * axis = create_axis(al_get_display_width(display), al_get_display_height(display), (double)cant_robots, results[0], axis_name_x, axis_name_y);
+	print_axis(axis);
+
+
+	ALLEGRO_COLOR color1 = al_color_name(HISOGRAM_COLOR_BAR);
+	ALLEGRO_COLOR color2 = al_color_name(HISTOGRAM_COLOR_REFERENCE);
+	ALLEGRO_COLOR color_font = al_color_name(HISTOGRAM_COLOR_FONT);
+
+
+	ALLEGRO_FONT * font = al_load_ttf_font(HISTOGRAM_FILE_FONT, FONT_SIZE_HISTOGRAM, 0);
+
+
+	double x = 0.0, y = 0.0;
+	bool tolerance_reached = false;
+	bool can_i_write = false;
+
+	if (axis->max_x > TOLERANCE_FONT_ROBOT)
 	{
-		can_print = false;
-	}
-	else
-	{
-		al_set_target_backbuffer(display);
-		al_clear_to_color(al_color_name(HISTOGRAM_COLOR_BACK)); //pinta el display.
-
-
-		unsigned int height = al_get_display_height(display);
-		unsigned int width = al_get_display_width(display);
-
-		double plane_width = width - 2.0*UNITY_FONT_SPACE; //le resto dos para que quede un cuadrado donde escribir las axis
-		double plane_height = height - 2.0*UNITY_FONT_SPACE;
-
-		double tick_space = plane_height*REFACTOR_HISTOGRAM_TICK_SPACE;
-		unsigned long max_tick = tick_per_simulation[0];
-		unsigned long ticks_per_space = max_tick* REFACTOR_HISTOGRAM_TICK_PER_SPACE;
-
-
-		double tick_number_y = 0.0;
-
-		//imprime los numeros sobre el eje de ticks.
-		for (int j = 1; j <= 10; j++)
-		{
-			tick_number_y = height - (UNITY_FONT_SPACE)-j * tick_space;
-			al_draw_textf(font, al_color_name(HISTOGRAM_COLOR_FONT), (UNITY_FONT_SPACE) / 2.0,
-								tick_number_y, ALLEGRO_ALIGN_CENTRE, "%lu", j*ticks_per_space);
-		}
-		
-		al_draw_text(font, al_color_name(HISTOGRAM_COLOR_REFERENCE), (UNITY_FONT_SPACE) / 2.0, (UNITY_FONT_SPACE) / 2.0,
-							ALLEGRO_ALIGN_CENTRE, "Count Ticks");
-
-
-		double bar_width = plane_width / (double)(cant_simulations + 1);
-		double bar_space = bar_width / (double)(cant_simulations - 1);
-
-
-		al_draw_line(UNITY_FONT_SPACE, height - UNITY_FONT_SPACE, width - UNITY_FONT_SPACE,
-					height - UNITY_FONT_SPACE, al_color_name(HISTOGRAM_COLOR_AXIS), 2.0);
-		//Dibuja el eje donde se representa el numero de robots
-
-		al_draw_line(UNITY_FONT_SPACE, height - UNITY_FONT_SPACE, UNITY_FONT_SPACE, UNITY_FONT_SPACE,
-					al_color_name(HISTOGRAM_COLOR_AXIS), 2.0);
-		//dibuja el eje donde se representa el numero de Ticks.
-
-		double upper_left_corner_x = 0.0;
-		double upper_left_corner_y = 0.0;
-		double lower_right_corner_x = 0.0;
-		double lower_right_corner_y = 0.0;
-
-		double number_x = 0.0;
-
-		for (unsigned int i = 0; i < cant_simulations; i++)
-		{
-			upper_left_corner_x = (UNITY_FONT_SPACE)+i * (bar_width + bar_space);
-			upper_left_corner_y = (height - (UNITY_FONT_SPACE)) - ((tick_per_simulation[i]) / ((double)ticks_per_space))*tick_space;
-			lower_right_corner_x = upper_left_corner_x + bar_space;
-			lower_right_corner_y = height - UNITY_FONT_SPACE;
-
-			al_draw_filled_rectangle(upper_left_corner_x, upper_left_corner_y, lower_right_corner_x, lower_right_corner_y,
-								al_color_name(HISOGRAM_COLOR_BAR));
-			//Dibuja la barra correspondiente al robot
-
-			number_x = (upper_left_corner_x + lower_right_corner_x) / 2.0;
-
-			al_draw_textf(font, al_color_name(HISTOGRAM_COLOR_FONT),
-						number_x, height - ((UNITY_FONT_SPACE) / 2.0), ALLEGRO_ALIGN_CENTRE, "%d", i + 1);
-			//imprime el numero de robots abajo de la barra correspondiente.
-			
-			al_draw_text(font, al_color_name(HISTOGRAM_COLOR_REFERENCE),
-				width - (UNITY_FONT_SPACE) / 2.0, height - (UNITY_FONT_SPACE) / 2.0, ALLEGRO_ALIGN_CENTRE, "Cant Robots");
-	
-			can_print = true;
-		
-		}
-
-		
-		
-		
-		al_destroy_font(font);
-
-		
+		tolerance_reached = true;
 	}
 
 
-	return can_print;
+	for (int i = 0; i < axis->max_x; i++)
+	{
+		x = axis->space_x + (axis->el_scale_x * (i + 1));
+		y = axis->space_y + (axis->el_scale_y * (axis->max_y - results[i]));
+		switch (i & 1)
+		{
+		case 1: al_draw_filled_rectangle(x - OFFSET_HISTOGRAM, y, x + OFFSET_HISTOGRAM, axis->origin_x, color1); break;
+		case 0: al_draw_filled_rectangle(x - OFFSET_HISTOGRAM, y, x + OFFSET_HISTOGRAM, axis->origin_y, color2);
+		}
+		if (tolerance_reached)
+		{
+			if ((i == 0) || (i == 1) || (i == 2) || (i == 3) || ((i + 1) >= axis->max_x))
+			{
+				can_i_write = true;
+			}
+		}
+		else
+		{
+			can_i_write = true;
+		}
+		if (can_i_write)
+		{
+			al_draw_textf(font, color_font, x - OFFSET_HISTOGRAM, y - (OFFSET_HISTOGRAM * 2), 0, "%.1f", results[i]);
+			can_i_write = false;
+		}
 
-	
+	}
+	al_flip_display();
 
+	al_destroy_font(font);
 }
-
-
 
 
 //FUNCIONES AUXILIARES
