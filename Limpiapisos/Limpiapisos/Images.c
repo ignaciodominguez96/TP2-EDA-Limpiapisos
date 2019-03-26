@@ -69,6 +69,7 @@ destroy_images(images_t * images)
 	al_destroy_bitmap((images->images_tiles)->image_tile_dirty);
 	al_destroy_bitmap(images->image_robot);
 	free(images);
+	images = NULL;
 }
 
 

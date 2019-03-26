@@ -18,7 +18,6 @@
 int
 main(int argc, char * argv[])
 {
-	printf("Hola\n");
 	int end = 1;
 
 	randomize(); //genera una nueva seed para rand
@@ -42,7 +41,7 @@ main(int argc, char * argv[])
 					simulation_t * simulation = create_Simulation(getUserData(myData, ROBOTC), getUserData(myData, HEIGHT),
 						getUserData(myData, WIDTH), MODE_1, myAllegro); //llenar parametros
 
-					//#error "para mi hay que dimensionar aca...multiplicar por una unidad"
+			
 
 					if (simulation != NULL)
 					{

@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include "Robot.h"
 #include "Floor.h"
+#include "Output.h"
 
 #define	MODE_1	1
 #define	MODE_2	2
@@ -18,6 +19,7 @@ typedef struct
 	floor_t * floor;
 	unsigned int mode;
 	unsigned int tickcount;
+	images_t * images;
 	allegroStruct_t* usrAllegro;
 
 }simulation_t;

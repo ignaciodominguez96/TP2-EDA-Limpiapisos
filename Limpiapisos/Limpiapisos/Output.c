@@ -14,12 +14,21 @@
 #define REFACTOR_HISTOGRAM_TICK_SPACE	(1/11.0)
 #define REFACTOR_HISTOGRAM_TICK_PER_SPACE	(1/10.0)
 
-#define	HISTOGRAM_FILE_FONT	""
-#define HISOGRAM_COLOR_BAR	""
-#define	HISTOGRAM_COLOR_FONT	""
-#define HISTOGRAM_COLOR_BACK ""
-#define HISTOGRAM_COLOR_REFERENCE ""
-#define	HISTOGRAM_COLOR_AXIS	""
+#define	HISTOGRAM_FILE_FONT	"../Fonts/Starjedi.ttf"
+#define HISOGRAM_COLOR_BAR	"green"
+#define	HISTOGRAM_COLOR_FONT	"hotpink"
+#define HISTOGRAM_COLOR_BACK "black"
+#define HISTOGRAM_COLOR_REFERENCE "lightblue"
+#define	HISTOGRAM_COLOR_AXIS	"white"
+
+
+
+//DECLARACIONES FUNCIONES AUXILIARES
+
+void update_robots_Output(robot_t* robots, unsigned int cant_robots, ALLEGRO_BITMAP* image_robot);
+void update_tiles_Output(floor_t * floor, image_tiles_t * images_tiles);
+
+
 
 allegroStruct_t* allegro_setup(allegroStruct_t* usrAllegro)
 {
@@ -88,94 +97,13 @@ void allegro_destroy(allegroStruct_t* usrAllegro)
 	usrAllegro = NULL;
 }
 
-void update_tiles_Output(floor_t * floor, image_tiles_t * images_tiles)
+void update_display_Output(floor_t * floor, robot_t * robots, unsigned int cant_robots, images_t* images)
 {
-	unsigned int height = floor->height;
-	unsigned int width = floor->width;
 
-	
-	bool is_clean_tile;
-	//position_t position;
+	update_tiles_Output(floor, images->images_tiles);
+	update_robots_Output(robots, cant_robots, images->image_robot);
 
-	
-	for (unsigned int i = 0; i < height; i++) //actualiza todas las baldosas segun sus estados.
-	{
-		for (unsigned int j = 0; j < width; j++)
-		{
-
-			is_clean_tile = is_clean_Tile((floor->tiles)+ i + j * width );
-		//	position = getPisoLocation(baldosas, i, j);
-
-			//#error "creo que no es necesario"
-
-			if (is_clean_tile == true)
-			{
-				al_draw_bitmap(images_tiles->image_tile_clean, i, j, 0); //dibuja la baldosa limpia.
-			}
-			else
-			{
-				al_draw_bitmap(images_tiles->image_tile_dirty, i, j, 0); //dibuja la baldosa sucia.
-			}
-		}
-
-	}
 }
-
-
-void update_robots_Output(robot_t* robots, unsigned int cant_robots, ALLEGRO_BITMAP* image_robot)
-{
-	double position_x = 0.0;
-	double position_y = 0.0;
-
-	position_t vector = { 0.0 , 0.0 };
-	position_t vector_vertex_head1; //Representan los tres vertices del triangulo que forma
-	position_t vector_vertex_head2; //la cabeza del vector.
-	position_t vector_vertex_head3;
-	
-	//unsigned int unit = (robots->unit);
-	//#error "creo que no es necesario"
-	
-	double angle = 0.0;
-
-	for (unsigned int i = 0; i < cant_robots; i++)
-	{
-		position_x = get_Robot_posx(robots + i);
-		position_y = get_Robot_posy(robots + i);
-
-		angle = get_Robot_angle(robots + i);
-		angle = DEGREES_TO_RAD(angle);
-		al_draw_bitmap(image_robot, position_x, position_y, 0); //dibuja el robot en su posicion del display
-
-		vector.x = position_x + UNITY_VECTOR*cos(angle);
-		vector.y = position_y - UNITY_VECTOR*sin(angle);
-
-		al_draw_line((vector.x)+(UNITY_ROBOT)/2.0, (vector.y) + (UNITY_ROBOT)/2.0, vector.x, vector.y,
-			al_color_name(VECTOR_COLOR), VECTOR_THICKNESS);
-
-		vector_vertex_head1.x = vector.x - UNITY_VECTOR_HEAD*cos(M_PI_4);
-		vector_vertex_head1.y = vector.y - UNITY_VECTOR_HEAD*sin(M_PI_4);
-
-		vector_vertex_head2.x = vector.x + UNITY_VECTOR_HEAD*cos(M_PI_4);
-		vector_vertex_head2.y = vector.y + UNITY_VECTOR_HEAD*sin(M_PI_4);
-
-		vector_vertex_head3.x = vector.x + UNITY_VECTOR_HEAD*cos(M_PI_4);
-		vector_vertex_head3.y = vector.y - UNITY_VECTOR_HEAD*sin(M_PI_4);
-
-		al_draw_filled_triangle(vector_vertex_head1.x, vector_vertex_head1.y,
-								vector_vertex_head2.x, vector_vertex_head2.y,
-								vector_vertex_head3.x, vector_vertex_head3.y, al_color_name(VECTOR_COLOR));
-		
-	}
-}
-
-
-/*void update_display_Output(simulation_t* simulation, images_t* images)
-{
-
-	update_tiles_Output(simulation->floor, images->images_tiles);
-	update_robots_Output(simulation->robots, simulation->cant_robots, images->image_robot);
-
-}*/
 
 
 //#error "cambiar nombre variables"
@@ -260,10 +188,8 @@ print_histogram_Output( ALLEGRO_DISPLAY* display, unsigned int cant_simulations,
 			//imprime el numero de robots abajo de la barra correspondiente.
 			
 			al_draw_text(font, al_color_name(HISTOGRAM_COLOR_REFERENCE),
-				width - (UNITY_FONT_SPACE) / 2.0, height - width - (UNITY_FONT_SPACE) / 2.0, height - (UNITY_FONT_SPACE) / 2.0,
-					ALLEGRO_ALIGN_CENTRE, "Cant Robots");
+				width - (UNITY_FONT_SPACE) / 2.0, height - (UNITY_FONT_SPACE) / 2.0, ALLEGRO_ALIGN_CENTRE, "Cant Robots");
 	
-
 			can_print = true;
 		
 		}
@@ -283,4 +209,89 @@ print_histogram_Output( ALLEGRO_DISPLAY* display, unsigned int cant_simulations,
 
 }
 
+
+
+
+//FUNCIONES AUXILIARES
+
+
+void update_tiles_Output(floor_t * floor, image_tiles_t * images_tiles)
+{
+	unsigned int height = floor->height;
+	unsigned int width = floor->width;
+
+
+	bool is_clean_tile;
+	//position_t position;
+
+
+	for (unsigned int i = 0; i < height; i++) //actualiza todas las baldosas segun sus estados.
+	{
+		for (unsigned int j = 0; j < width; j++)
+		{
+
+			is_clean_tile = is_clean_Tile((floor->tiles) + i + j * width);
+			//	position = getPisoLocation(baldosas, i, j);
+
+				//#error "creo que no es necesario"
+
+			if (is_clean_tile == true)
+			{
+				al_draw_bitmap(images_tiles->image_tile_clean, i, j, 0); //dibuja la baldosa limpia.
+			}
+			else
+			{
+				al_draw_bitmap(images_tiles->image_tile_dirty, i, j, 0); //dibuja la baldosa sucia.
+			}
+		}
+
+	}
+}
+
+
+void update_robots_Output(robot_t* robots, unsigned int cant_robots, ALLEGRO_BITMAP* image_robot)
+{
+	double position_x = 0.0;
+	double position_y = 0.0;
+
+	position_t vector = { 0.0 , 0.0 };
+	position_t vector_vertex_head1; //Representan los tres vertices del triangulo que forma
+	position_t vector_vertex_head2; //la cabeza del vector.
+	position_t vector_vertex_head3;
+
+	//unsigned int unit = (robots->unit);
+	//#error "creo que no es necesario"
+
+	double angle = 0.0;
+
+	for (unsigned int i = 0; i < cant_robots; i++)
+	{
+		position_x = get_Robot_posx(robots + i);
+		position_y = get_Robot_posy(robots + i);
+
+		angle = get_Robot_angle(robots + i);
+		angle = DEGREES_TO_RAD(angle);
+		al_draw_bitmap(image_robot, position_x, position_y, 0); //dibuja el robot en su posicion del display
+
+		vector.x = position_x + UNITY_VECTOR * cos(angle);
+		vector.y = position_y - UNITY_VECTOR * sin(angle);
+
+		al_draw_line((vector.x) + (UNITY_ROBOT) / 2.0, (vector.y) + (UNITY_ROBOT) / 2.0, vector.x, vector.y,
+			al_color_name(VECTOR_COLOR), VECTOR_THICKNESS);
+
+		vector_vertex_head1.x = vector.x - UNITY_VECTOR_HEAD * cos(M_PI_4);
+		vector_vertex_head1.y = vector.y - UNITY_VECTOR_HEAD * sin(M_PI_4);
+
+		vector_vertex_head2.x = vector.x + UNITY_VECTOR_HEAD * cos(M_PI_4);
+		vector_vertex_head2.y = vector.y + UNITY_VECTOR_HEAD * sin(M_PI_4);
+
+		vector_vertex_head3.x = vector.x + UNITY_VECTOR_HEAD * cos(M_PI_4);
+		vector_vertex_head3.y = vector.y - UNITY_VECTOR_HEAD * sin(M_PI_4);
+
+		al_draw_filled_triangle(vector_vertex_head1.x, vector_vertex_head1.y,
+			vector_vertex_head2.x, vector_vertex_head2.y,
+			vector_vertex_head3.x, vector_vertex_head3.y, al_color_name(VECTOR_COLOR));
+
+	}
+}
 

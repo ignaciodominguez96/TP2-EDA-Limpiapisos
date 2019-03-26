@@ -20,6 +20,30 @@ simulation_t * create_Simulation(unsigned int cant_robots, unsigned int height, 
 				newSim->floor = tempFloor;
 				newSim->tickcount = 0; //por las dudas se inicializa en 0 para evitar basura del heap
 				newSim->usrAllegro = usrAllegro;
+
+				if (mode == MODE_1)
+				{
+					images_t * images = create_images();
+
+					if (images != NULL)
+					{
+						newSim->images = images;
+
+					}
+					else
+					{
+						free(tempRobot);
+						tempRobot = NULL;
+						free(newSim);
+						newSim = NULL;
+
+					}
+				}
+				else
+				{
+					newSim->images = NULL;
+				}
+
 			}
 			else
 			{
@@ -51,13 +75,18 @@ bool	simulate_Simulation(simulation_t * simulation)
 			act_Robot(tempRobot, get_width_Floor(simulation->floor), get_height_Floor(simulation->floor));	//	El robot se mueve o cambia de direccion
 			wash_Tile(get_tile(simulation->floor, (int)floor(get_Robot_posx(tempRobot)), (int)floor(get_Robot_posy(tempRobot))));	// Se limpia la baldosa donde este el robot, se haya movido o no
 		}
-		/*draw_floor(simulation->usrAllegro->display, simulation->floor); //corregir la doble entrada
-		draw_robots(simulation->usrAllegro->display, simulation);
-		al_clean_file(simulation->usrAllegro->display, simulation->floor);*/
 
+		if (simulation->mode == MODE_1)
+		{
+			update_display_Output(simulation->floor, simulation->robots, simulation->cant_robots, simulation->images);
+			al_flip_display();
+			al_rest(1 / FPS);
+
+		}
+		
 		(simulation->tickcount)++;
 
-		//al_rest(0.1); //usar def
+		
 	}
 
 	return 0;
@@ -72,10 +101,20 @@ unsigned int get_tickcount_Simulation(simulation_t * simulation)
 
 void	destroy_Simulation(simulation_t * simulation)
 {
-	free(simulation->floor);
-	simulation->floor = NULL;
-	free(simulation->robots);
-	simulation->robots = NULL;
+	destroy_Floor(simulation->floor);
+
+	for (unsigned int i = 0; i < simulation->cant_robots; i++)
+	{
+		destroy_Robots((simulation->robots) + i);
+
+	}
+
+
+	destroy_images(simulation->images);
+
 	free(simulation);
 	simulation = NULL;
+	
+
+
 }
