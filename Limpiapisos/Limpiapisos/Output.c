@@ -111,13 +111,12 @@ void allegro_destroy(allegroStruct_t* usrAllegro)
 	al_shutdown_image_addon();
 }
 
-void display_TickCount(ALLEGRO_DISPLAY* display, unsigned int tickCount)
+void display_TickCount(unsigned int height, unsigned int width, unsigned int tickCount)
 {
-	ALLEGRO_FONT* font = al_load_ttf_font(HISTOGRAM_FILE_FONT, UNITY_FONT_LETTER, 0);
+	ALLEGRO_FONT* font = al_load_ttf_font(HISTOGRAM_FILE_FONT, 30.0, 0);
 	if (font != NULL);
 	{
-		al_set_target_backbuffer(display);
-		al_draw_textf(font, al_color_name(HISTOGRAM_COLOR_FONT), UNITY_FONT_SPACE / 2.0, UNITY_FONT_SPACE / 2.0, ALLEGRO_ALIGN_CENTER, "%d", tickCount);
+		al_draw_textf(font, al_color_name(HISTOGRAM_COLOR_FONT), width/2.0, height/2.0, ALLEGRO_ALIGN_LEFT, "%d", tickCount);
 		al_flip_display();
 		al_destroy_font(font);
 	}
