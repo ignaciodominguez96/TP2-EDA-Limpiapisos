@@ -35,7 +35,7 @@ typedef struct
 
 allegroStruct_t* allegro_setup(allegroStruct_t* usrAllegro, unsigned int height, unsigned int width);
 void allegro_destroy(allegroStruct_t* usrAllegro);
-void display_TickCount(unsigned int tickCount);
+void display_TickCount(unsigned int height, unsigned int width, unsigned int tickCount);
 void update_display_Output(floor_t * floor, robot_t * robots, unsigned int cant_robots, images_t* images);
 void print_histogram_Output(unsigned int cant_robots, double * results, ALLEGRO_DISPLAY * display, char * axis_name_x, char *  axis_name_y);
 
