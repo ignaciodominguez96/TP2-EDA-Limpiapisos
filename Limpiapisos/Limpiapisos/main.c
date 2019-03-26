@@ -29,7 +29,7 @@ main(int argc, char * argv[])
 		if ((parseCmdLine(argc, argv, parseCallBack, myData) == 4) && isDataFull(myData)) //Igualado a la cantidad de opciones requeridas. En modo2 podrian ser 3
 		{
 			allegroStruct_t* myAllegro = NULL;
-			myAllegro = allegro_setup(myAllegro, myData->height, myData->width);
+			myAllegro = allegro_setup(myData->height, myData->width);
 
 			if (myAllegro != NULL)
 			{
@@ -67,8 +67,18 @@ main(int argc, char * argv[])
 
 						for (unsigned int i = 0; i < CANT_SIMULATIONS_MODE_2; i++)
 						{
+							if (simulation != NULL)
+							{
+								free(simulation->robots);
+								free(simulation);
+							}
+
+
 							 simulation = create_Simulation(robot_count, getUserData(myData, HEIGHT), getUserData(myData, WIDTH), MODE_2,
 								myAllegro);
+
+							 if (simulation->robots == NULL)
+								 simulation = simulation;
 
 
 							if (simulation != NULL)
@@ -77,6 +87,8 @@ main(int argc, char * argv[])
 								tickcount_sum += (double) get_tickcount_Simulation(simulation);
 								
 							}
+
+							
 						
 
 						}
@@ -107,12 +119,15 @@ main(int argc, char * argv[])
 						printf("Robot Count: %d ---- Tickcount expected : %f\n", robot_count , histogram[robot_count - 1]);
 					}
 					bool can_i_print = false;
-						
-					al_resize_display(myAllegro->display, 1000.0, 1200.0);
+					
 					print_histogram_Output(robot_count - 1, histogram, myAllegro->display, "Robots", "Tiempo");
-					al_set_new_window_position(0.0, 0.0);
 					al_flip_display();
-					destroy_Simulation(simulation);
+					
+					
+					free(simulation->floor);
+					free(simulation->robots);
+					free(simulation);
+					
 
 				}
 

@@ -126,10 +126,10 @@ unsigned int get_tickcount_Simulation(simulation_t * simulation)
 
 
 void	destroy_Simulation(simulation_t * simulation)
-{
-	destroy_Floor(simulation->floor);
 
+{
 	destroy_Robots(simulation->robots);
+	destroy_Floor(simulation->floor);
 
 	if (simulation->mode == 1)
 	{

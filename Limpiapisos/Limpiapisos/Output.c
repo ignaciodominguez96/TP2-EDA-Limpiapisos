@@ -30,9 +30,9 @@ void update_tiles_Output(floor_t * floor, image_tiles_t * images_tiles);
 
 
 
-allegroStruct_t* allegro_setup(allegroStruct_t* usrAllegro, unsigned int height, unsigned int width)
+allegroStruct_t* allegro_setup(unsigned int height, unsigned int width)
 {
-	usrAllegro = NULL;
+	allegroStruct_t* usrAllegro = NULL;
 	usrAllegro = (allegroStruct_t*)malloc(sizeof(allegroStruct_t));
 
 	if (usrAllegro != NULL)
@@ -135,7 +135,7 @@ void update_display_Output(floor_t * floor, robot_t * robots, unsigned int cant_
 
 
 
-#error "cambiar nombre variables"
+//#error "cambiar nombre variables"
 
 void print_histogram_Output(unsigned int cant_robots, double * results,  ALLEGRO_DISPLAY * display, char * axis_name_x, char *  axis_name_y)
 {
