@@ -75,9 +75,13 @@ main(int argc, char * argv[])
 							{
 								simulate_Simulation(simulation);
 								tickcount_sum += (double) get_tickcount_Simulation(simulation);
-								
+								destroy_Simulation(simulation);
 							}
-						
+							else
+							{
+								printf("Una sim dio null");
+								getchar();
+							}
 
 						}
 
@@ -112,7 +116,7 @@ main(int argc, char * argv[])
 					print_histogram_Output(robot_count - 1, histogram, myAllegro->display, "Robots", "Tiempo");
 					al_set_new_window_position(0.0, 0.0);
 					al_flip_display();
-					destroy_Simulation(simulation);
+					getchar();
 
 				}
 

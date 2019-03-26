@@ -32,14 +32,11 @@ void update_tiles_Output(floor_t * floor, image_tiles_t * images_tiles);
 
 allegroStruct_t* allegro_setup(allegroStruct_t* usrAllegro, unsigned int height, unsigned int width)
 {
-	usrAllegro = NULL;
 	usrAllegro = (allegroStruct_t*)malloc(sizeof(allegroStruct_t));
 
 	if (usrAllegro != NULL)
 	{
 		usrAllegro->display = NULL;
-		/*usrAllegro->event_queue = NULL;
-		usrAllegro->timer = NULL;*/
 
 		if (!al_init())//inicio allegro
 		{
@@ -55,30 +52,7 @@ allegroStruct_t* allegro_setup(allegroStruct_t* usrAllegro, unsigned int height,
 			return NULL;
 		}
 
-
-		/*usrAllegro->event_queue = al_create_event_queue();
-		if (!(usrAllegro->event_queue))//inicio cola de eventos
-		{
-			printf("Could not initialize event queue!.\n");
-			al_destroy_display(usrAllegro->display);
-			return NULL;
-		}
-
-		usrAllegro->timer = al_create_timer(1 / FPS);
-		if (!(usrAllegro->timer))//inicio timer IMPORTANTE FUNCIONA  A 60 FPS
-		{
-			printf("Failed to create timer!\n");
-			al_destroy_event_queue(usrAllegro->event_queue);
-			al_destroy_display(usrAllegro->display);
-			return NULL;
-		}*/
-
 		al_set_window_title(usrAllegro->display, "Limpiapisos");
-
-		/*al_register_event_source(usrAllegro->event_queue, al_get_display_event_source(usrAllegro->display));
-		al_register_event_source(usrAllegro->event_queue, al_get_timer_event_source(usrAllegro->timer));
-
-		al_start_timer(usrAllegro->timer);*/
 
 		al_init_image_addon();
 		al_init_font_addon();
@@ -95,10 +69,6 @@ void allegro_destroy(allegroStruct_t* usrAllegro)
 {
 	al_destroy_display(usrAllegro->display);
 	usrAllegro->display = NULL;
-	/*al_destroy_timer(usrAllegro->timer);
-	usrAllegro->timer = NULL;
-	al_destroy_event_queue(usrAllegro->event_queue);
-	usrAllegro->event_queue = NULL;*/
 	free(usrAllegro);
 	usrAllegro = NULL;
 
@@ -116,6 +86,8 @@ void display_TickCount(unsigned int height, unsigned int width, unsigned int tic
 		al_clear_to_color(al_color_name("white"));
 		al_draw_textf(font, al_color_name("black"), width*UNITY_TILE/2.0, height*UNITY_TILE/2.0-10.0, ALLEGRO_ALIGN_CENTER,
 			"Final tick count: %d", tickCount);
+		al_draw_textf(font, al_color_name("black"), width*UNITY_TILE / 2.0, height*UNITY_TILE / 2.0 + 10.0, ALLEGRO_ALIGN_CENTER,
+			"Press 'enter' to exit", tickCount);
 		al_flip_display();
 		al_destroy_font(font);
 	}
@@ -131,11 +103,7 @@ void update_display_Output(floor_t * floor, robot_t * robots, unsigned int cant_
 
 
 
-
-
-
-
-#error "cambiar nombre variables"
+//#error "cambiar nombre variables"
 
 void print_histogram_Output(unsigned int cant_robots, double * results,  ALLEGRO_DISPLAY * display, char * axis_name_x, char *  axis_name_y)
 {

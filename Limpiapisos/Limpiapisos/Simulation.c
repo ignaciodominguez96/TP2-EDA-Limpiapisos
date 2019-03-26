@@ -4,10 +4,6 @@
 
 simulation_t * create_Simulation(unsigned int cant_robots, unsigned int height, unsigned int width, unsigned int mode, allegroStruct_t* usrAllegro)
 {
-	//#error "esto no se hace"
-	static bool esto_NO = false;
-	static floor_t * tempFloor = NULL;
-
 	simulation_t* newSim = NULL;
 	newSim = (simulation_t*)malloc(sizeof(simulation_t));
 	if (newSim != NULL)
@@ -15,37 +11,16 @@ simulation_t * create_Simulation(unsigned int cant_robots, unsigned int height, 
 		robot_t* tempRobot = create_Robots(width, height, cant_robots);
 		if (tempRobot != NULL)
 		{
-//			#error "ver si no destruir piso"
-			if (mode == MODE_2 && cant_robots == 1 && esto_NO == false)
+			floor_t* tempFloor = create_Floor(height, width);
+			if (tempFloor != NULL)
 			{
-				esto_NO = true;
-				tempFloor = create_Floor(height, width);
-
-				if (tempFloor == NULL)
-				{
-					free(tempRobot);
-					tempRobot = NULL;
-					free(newSim);
-					newSim = NULL;
-				
-				}
-				
-			}
-			else
-			{
-				for (unsigned int i = 0; i < (height*width); i++)
-				{
-					mess_Tile(tempFloor->tiles + i);
-				}
-			}
-			//if (tempFloor != NULL)
-			//{
 				newSim->robots = tempRobot;
 				newSim->cant_robots = cant_robots;
 				newSim->mode = mode;
 				newSim->floor = tempFloor;
 				newSim->tickcount = 0; //por las dudas se inicializa en 0 para evitar basura del heap
 				newSim->usrAllegro = usrAllegro;
+
 
 				if (mode == MODE_1)
 				{
@@ -54,30 +29,29 @@ simulation_t * create_Simulation(unsigned int cant_robots, unsigned int height, 
 					if (images != NULL)
 					{
 						newSim->images = images;
-
 					}
 					else
 					{
+						free(tempFloor);
+						tempFloor = NULL;
 						free(tempRobot);
 						tempRobot = NULL;
 						free(newSim);
 						newSim = NULL;
-
 					}
 				}
 				else
 				{
 					newSim->images = NULL;
-				} 
-
-		//	}
-		//	else
-		//	{
-		//		free(tempRobot);
-		//		tempRobot = NULL;
-		//		free(newSim);
-		//		newSim = NULL;
-		//	}
+				}
+			}
+			else
+			{
+				free(tempRobot);
+				tempRobot = NULL;
+				free(newSim);
+				newSim = NULL;
+			}
 		}
 		else
 		{

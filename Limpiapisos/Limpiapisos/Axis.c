@@ -52,13 +52,13 @@ void print_axis (axis_t * axis)
 	al_draw_line(axis->origin_x, axis->origin_y, axis->long_axis_x + axis->origin_x, axis->origin_y, color, axis->thickness);
 	
 
-	for (int i = 1; i <= axis->cant_x; i++)
+	for (unsigned int i = 1; i <= axis->cant_x; i++)
 	{
 		al_draw_line((axis->origin_x + (i * axis->el_scale_x)), axis->origin_y + OFFSET_AXIS_INDICATOR,
 			(axis->origin_x + (i * axis->el_scale_x)), axis->origin_y - OFFSET_AXIS_INDICATOR, color, axis->thickness);
 		al_draw_textf(font, color, (axis->origin_x + (i * axis->el_scale_x)), axis->origin_y + ((OFFSET_AXIS_INDICATOR) * 2), 0, "%d", i);
 	}
-	for (int i = 1; i <= axis->cant_y / SEPARATION_AXIS_Y; i++)
+	for (unsigned int i = 1; i <= axis->cant_y / SEPARATION_AXIS_Y; i++)
 	{
 		al_draw_line(axis->origin_x + OFFSET_AXIS_INDICATOR, (axis->space_y + (i * axis->el_scale_y*SEPARATION_AXIS_Y)), 
 			axis->origin_x - OFFSET_AXIS_INDICATOR, (axis->space_y + (i * axis->space_y*OFFSET_AXIS_INDICATOR)), color, axis->thickness);

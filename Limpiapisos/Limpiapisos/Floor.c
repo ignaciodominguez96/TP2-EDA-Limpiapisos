@@ -16,13 +16,13 @@ create_Floor(unsigned int height, unsigned int width)
 		floor->height = height;
 		floor->width = width;
 		floor->tiles = NULL;
-		bool * tiles = (bool *)malloc(sizeof(bool)*height*width);
+		bool * tiles = (bool *)malloc(sizeof(bool)*(height*width*2));
 
 		if (tiles != NULL)
 		{
 			for (unsigned int i = 0; i < (height*width); i++)
 			{
-				mess_Tile( tiles + i);
+				mess_Tile(tiles + i);
 			}
 
 			floor->tiles = tiles;
@@ -81,9 +81,11 @@ is_clear_Floor(floor_t * floor)
 void
 destroy_Floor(floor_t * floor)
 {
-	free(floor->tiles);
+	if(floor->tiles != NULL)
+		free(floor->tiles);
 	floor->tiles = NULL;
-	free(floor);
+	if (floor != NULL)
+		free(floor);
 	floor = NULL;
 
 }
