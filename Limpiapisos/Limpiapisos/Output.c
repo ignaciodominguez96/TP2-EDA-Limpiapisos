@@ -113,10 +113,12 @@ void allegro_destroy(allegroStruct_t* usrAllegro)
 
 void display_TickCount(unsigned int height, unsigned int width, unsigned int tickCount)
 {
-	ALLEGRO_FONT* font = al_load_ttf_font(HISTOGRAM_FILE_FONT, 30.0, 0);
+	ALLEGRO_FONT* font = al_load_ttf_font(HISTOGRAM_FILE_FONT, 20.0, 0);
 	if (font != NULL);
 	{
-		al_draw_textf(font, al_color_name(HISTOGRAM_COLOR_FONT), width/2.0, height/2.0, ALLEGRO_ALIGN_LEFT, "%d", tickCount);
+		al_clear_to_color(al_color_name("white"));
+		al_draw_textf(font, al_color_name("black"), width*UNITY_TILE/2.0, height*UNITY_TILE/2.0-10.0, ALLEGRO_ALIGN_CENTER,
+			"Final tick count: %d", tickCount);
 		al_flip_display();
 		al_destroy_font(font);
 	}
