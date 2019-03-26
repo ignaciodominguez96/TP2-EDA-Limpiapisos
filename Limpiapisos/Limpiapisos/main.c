@@ -12,13 +12,12 @@
 #include "Output.h"
 
 #define HISTOGRAM_SIZE 500
-#define CONDICION_DE_STOP (((histogram[robot_count-2])-(histogram[robot_count-1])) < 0.1)
+#define CONDICION_DE_STOP ((robot_count > 2) && ((histogram[robot_count-2])-(histogram[robot_count-1])) < 0.1)
 
 
 int
 main(int argc, char * argv[])
 {
-	int end = 1;
 
 	randomize(); //genera una nueva seed para rand
 
@@ -54,10 +53,10 @@ main(int argc, char * argv[])
 				}
 				else if (getUserData(myData, MODE) == MODE_2)
 				{
-					unsigned int robot_count;
+					unsigned int robot_count = 0;
 					double histogram[HISTOGRAM_SIZE];
 
-					for (robot_count = 1; CONDICION_DE_STOP; robot_count++) //creo que esta relacionado CONDICION_STOP con el 0.1 entre n y n+1
+					for (robot_count = 1; (robot_count < 3) || ((robot_count < 497) && (((histogram[robot_count - 2]) - (histogram[robot_count - 1])) >= 0.1)); robot_count++) //creo que esta relacionado CONDICION_STOP con el 0.1 entre n y n+1
 					{
 
 						double tickcount_sum = 0.0;
@@ -74,9 +73,8 @@ main(int argc, char * argv[])
 						}
 
 						histogram[robot_count-1] = tickcount_sum / CANT_SIMULATIONS_MODE_2; //ver como hacer la estructura para ir pusheando histogram
-
 					}
-
+					printf("%d\n", robot_count);
 					//show(histogram);
 				}
 

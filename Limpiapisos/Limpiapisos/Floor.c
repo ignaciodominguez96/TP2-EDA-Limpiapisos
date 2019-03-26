@@ -15,6 +15,7 @@ create_Floor(unsigned int height, unsigned int width)
 	{
 		floor->height = height;
 		floor->width = width;
+		floor->tiles = NULL;
 		floor->tiles = (tile_t *)malloc(sizeof(tile_t)*height*width);
 
 		if (floor->tiles != NULL)
@@ -79,6 +80,8 @@ is_clear_Floor(floor_t * floor)
 void
 destroy_Floor(floor_t * floor)
 {
+	free(floor->tiles);
+	//floor->tiles = NULL;
 	free(floor);
 	floor = NULL;
 

@@ -103,14 +103,12 @@ void	destroy_Simulation(simulation_t * simulation)
 {
 	destroy_Floor(simulation->floor);
 
-	for (unsigned int i = 0; i < simulation->cant_robots; i++)
+	destroy_Robots(simulation->robots);
+
+	if (simulation->mode == 1)
 	{
-		destroy_Robots((simulation->robots) + i);
-
+		destroy_images(simulation->images);
 	}
-
-
-	destroy_images(simulation->images);
 
 	free(simulation);
 	simulation = NULL;
