@@ -13,8 +13,9 @@ images_t *
 create_images(void)
 {
 	images_t* images = (images_t *)malloc(sizeof(images_t));
+	image_tiles_t * images_tiles = (image_tiles_t*)malloc(sizeof(image_tiles_t));
 
-	if (images == NULL)
+	if (images == NULL || images_tiles == NULL)
 	{
 		return NULL;
 	}
@@ -24,6 +25,7 @@ create_images(void)
 	if (image_tile_clean == NULL)
 	{
 		free(images);
+		free(images_tiles);
 
 		return NULL;
 	}
@@ -33,6 +35,7 @@ create_images(void)
 	if (image_tile_dirty == NULL)
 	{
 		free(images);
+		free(images_tiles);
 		free(image_tile_clean);
 
 		return NULL;
@@ -43,6 +46,7 @@ create_images(void)
 	if (image_robot == NULL)
 	{
 		free(images);
+		free(images_tiles);
 		free(image_tile_clean);
 		free(image_tile_dirty);
 
@@ -50,15 +54,14 @@ create_images(void)
 	}
 
 	
-	((images->images_tiles)->image_tile_clean) = image_tile_clean;
-	((images->images_tiles)->image_tile_dirty) = image_tile_dirty;
+	images_tiles->image_tile_clean = image_tile_clean;
+	images_tiles->image_tile_dirty = image_tile_dirty;
+	images->images_tiles = images_tiles;
 	images->image_robot = image_robot;
 
 
 	return images;
 	
-
-
 }
 
 
