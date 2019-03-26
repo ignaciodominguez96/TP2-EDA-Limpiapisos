@@ -7,9 +7,11 @@
 
 #define DEGREES_TO_RAD(x) (((x)*(M_PI))/180.0)
 
+#define SHIFT_ANGLE_X 90
+#define SHIFT_ANGLE_Y 90
 
 #define VECTOR_COLOR "black"
-#define	VECTOR_THICKNESS 0.8	//<=0
+
 
 #define REFACTOR_HISTOGRAM_TICK_SPACE	(1/11.0)
 #define REFACTOR_HISTOGRAM_TICK_PER_SPACE	(1/10.0)
@@ -30,7 +32,7 @@ void update_tiles_Output(floor_t * floor, image_tiles_t * images_tiles);
 
 
 
-allegroStruct_t* allegro_setup(allegroStruct_t* usrAllegro)
+allegroStruct_t* allegro_setup(allegroStruct_t* usrAllegro, unsigned int height, unsigned int width)
 {
 	usrAllegro = NULL;
 	usrAllegro = (allegroStruct_t*)malloc(sizeof(allegroStruct_t));
@@ -48,12 +50,14 @@ allegroStruct_t* allegro_setup(allegroStruct_t* usrAllegro)
 		}
 
 
-		usrAllegro->display = al_create_display(960, 800);
+		usrAllegro->display = al_create_display(UNITY_TILE*width, UNITY_TILE*height);
+		
 		if (!(usrAllegro->display))//inicio display
 		{
 			printf("Could not initialize Display!.\n");
 			return NULL;
 		}
+
 
 		usrAllegro->event_queue = al_create_event_queue();
 		if (!(usrAllegro->event_queue))//inicio cola de eventos
@@ -232,7 +236,6 @@ void update_tiles_Output(floor_t * floor, image_tiles_t * images_tiles)
 
 
 	bool is_clean_tile;
-	//position_t position;
 
 
 	for (unsigned int i = 0; i < height; i++) //actualiza todas las baldosas segun sus estados.
@@ -247,11 +250,11 @@ void update_tiles_Output(floor_t * floor, image_tiles_t * images_tiles)
 
 			if (is_clean_tile == true)
 			{
-				al_draw_bitmap(images_tiles->image_tile_clean, i, j, 0); //dibuja la baldosa limpia.
+				al_draw_bitmap(images_tiles->image_tile_clean, i*UNITY_TILE, j*UNITY_TILE, 0); //dibuja la baldosa limpia.
 			}
 			else
 			{
-				al_draw_bitmap(images_tiles->image_tile_dirty, i, j, 0); //dibuja la baldosa sucia.
+				al_draw_bitmap(images_tiles->image_tile_dirty, i*UNITY_TILE, j*UNITY_TILE, 0); //dibuja la baldosa sucia.
 			}
 		}
 
@@ -276,27 +279,27 @@ void update_robots_Output(robot_t* robots, unsigned int cant_robots, ALLEGRO_BIT
 
 	for (unsigned int i = 0; i < cant_robots; i++)
 	{
-		position_x = get_Robot_posx(robots + i);
-		position_y = get_Robot_posy(robots + i);
+		position_x = get_Robot_posx(robots + i)*UNITY_TILE;
+		position_y = get_Robot_posy(robots + i)*UNITY_TILE;
 
 		angle = get_Robot_angle(robots + i);
 		angle = DEGREES_TO_RAD(angle);
-		al_draw_bitmap(image_robot, position_x, position_y, 0); //dibuja el robot en su posicion del display
+		al_draw_bitmap(image_robot, position_x - (UNITY_ROBOT/2.0) , position_y - (UNITY_ROBOT/ 2.0), 0); //dibuja el robot en su posicion del display
 
-		vector.x = position_x + UNITY_VECTOR * cos(angle);
-		vector.y = position_y - UNITY_VECTOR * sin(angle);
+		vector.x = position_x + UNITY_VECTOR * cos(angle - DEGREES_TO_RAD(SHIFT_ANGLE_X));
+		vector.y = position_y + UNITY_VECTOR * sin(angle - DEGREES_TO_RAD(SHIFT_ANGLE_Y));
 
-		al_draw_line((vector.x) + (UNITY_ROBOT) / 2.0, (vector.y) + (UNITY_ROBOT) / 2.0, vector.x, vector.y,
-			al_color_name(VECTOR_COLOR), VECTOR_THICKNESS);
+		al_draw_line(position_x, position_y, vector.x, vector.y, al_color_name(VECTOR_COLOR), VECTOR_THICKNESS);
 
-		vector_vertex_head1.x = vector.x - UNITY_VECTOR_HEAD * cos(M_PI_4);
-		vector_vertex_head1.y = vector.y - UNITY_VECTOR_HEAD * sin(M_PI_4);
+		vector_vertex_head1.x = vector.x - UNITY_VECTOR_HEAD *cos(angle + M_PI_4 - DEGREES_TO_RAD(SHIFT_ANGLE_X));
+		vector_vertex_head1.y = vector.y - UNITY_VECTOR_HEAD *sin(angle + M_PI_4 - DEGREES_TO_RAD(SHIFT_ANGLE_Y));
 
-		vector_vertex_head2.x = vector.x + UNITY_VECTOR_HEAD * cos(M_PI_4);
-		vector_vertex_head2.y = vector.y + UNITY_VECTOR_HEAD * sin(M_PI_4);
 
-		vector_vertex_head3.x = vector.x + UNITY_VECTOR_HEAD * cos(M_PI_4);
-		vector_vertex_head3.y = vector.y - UNITY_VECTOR_HEAD * sin(M_PI_4);
+		vector_vertex_head2.x = vector.x + UNITY_VECTOR_HEAD * cos(angle + M_PI_4 - DEGREES_TO_RAD(SHIFT_ANGLE_X));
+		vector_vertex_head2.y = vector.y - UNITY_VECTOR_HEAD * sin(angle + M_PI_4 - DEGREES_TO_RAD(SHIFT_ANGLE_Y));
+
+		vector_vertex_head3.x = vector.x - UNITY_VECTOR_HEAD * cos(angle + M_PI_4 - DEGREES_TO_RAD(SHIFT_ANGLE_X));
+		vector_vertex_head3.y = vector.y - UNITY_VECTOR_HEAD * sin(angle + M_PI_4 - DEGREES_TO_RAD(SHIFT_ANGLE_Y));
 
 		al_draw_filled_triangle(vector_vertex_head1.x, vector_vertex_head1.y,
 			vector_vertex_head2.x, vector_vertex_head2.y,

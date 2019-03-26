@@ -41,7 +41,7 @@ create_images(void)
 		return NULL;
 	}
 
-	ALLEGRO_BITMAP* image_robot = resize_image(ROOT_IMAGE_TILE_CLEAN, UNITY_ROBOT, UNITY_ROBOT);
+	ALLEGRO_BITMAP* image_robot = resize_image(ROOT_IMAGE_ROBOT, UNITY_ROBOT, UNITY_ROBOT);
 
 	if (image_robot == NULL)
 	{

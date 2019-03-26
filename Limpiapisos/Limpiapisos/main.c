@@ -21,26 +21,25 @@ main(int argc, char * argv[])
 
 	randomize(); //genera una nueva seed para rand
 
-	allegroStruct_t* myAllegro = NULL;
-	myAllegro = allegro_setup(myAllegro);
+	
+	userData_t* myData = createUserData();
 
-	if (myAllegro != NULL)
+	if (myData != NULL)
 	{
-
-		userData_t* myData = createUserData();
-
-		if (myData != NULL)
+		if ((parseCmdLine(argc, argv, parseCallBack, myData) == 4) && isDataFull(myData)) //Igualado a la cantidad de opciones requeridas. En modo2 podrian ser 3
 		{
-			if ((parseCmdLine(argc, argv, parseCallBack, myData) == 4) && isDataFull(myData)) //Igualado a la cantidad de opciones requeridas. En modo2 podrian ser 3
-			{
+			allegroStruct_t* myAllegro = NULL;
+			myAllegro = allegro_setup(myAllegro, myData->height, myData->width);
 
+			if (myAllegro != NULL)
+			{
 				if (getUserData(myData, MODE) == MODE_1)
 				{
 					unsigned int tickCount = 0;
 					simulation_t * simulation = create_Simulation(getUserData(myData, ROBOTC), getUserData(myData, HEIGHT),
 						getUserData(myData, WIDTH), MODE_1, myAllegro); //llenar parametros
 
-			
+
 
 					if (simulation != NULL)
 					{
@@ -49,7 +48,7 @@ main(int argc, char * argv[])
 						printf("%d\n", tickCount);
 						destroy_Simulation(simulation);
 					}
-					
+
 				}
 				else if (getUserData(myData, MODE) == MODE_2)
 				{
@@ -72,19 +71,22 @@ main(int argc, char * argv[])
 
 						}
 
-						histogram[robot_count-1] = tickcount_sum / CANT_SIMULATIONS_MODE_2; //ver como hacer la estructura para ir pusheando histogram
+						histogram[robot_count - 1] = tickcount_sum / CANT_SIMULATIONS_MODE_2; //ver como hacer la estructura para ir pusheando histogram
 					}
 					printf("%d\n", robot_count);
 					//show(histogram);
 				}
 
+				allegro_destroy(myAllegro);
+
 			}
+
 
 			destroyUserData(myData);
 		}
 
-		allegro_destroy(myAllegro);
 	}
+
 
 	return 0;
 }

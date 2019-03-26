@@ -17,7 +17,7 @@
 #include "Floor.h"
 #include "Robot.h"
 
-#define FPS 60
+#define FPS 5.0
 
 typedef struct
 {
@@ -30,7 +30,7 @@ typedef struct
 
 
 
-allegroStruct_t* allegro_setup(allegroStruct_t* usrAllegro);
+allegroStruct_t* allegro_setup(allegroStruct_t* usrAllegro, unsigned int height, unsigned int width);
 void allegro_destroy(allegroStruct_t* usrAllegro);
 void update_display_Output(floor_t * floor, robot_t * robots, unsigned int cant_robots, images_t* images);
 bool print_histogram_Output(ALLEGRO_DISPLAY* display, unsigned int cant_simulations, unsigned long* tick_per_simulation);
