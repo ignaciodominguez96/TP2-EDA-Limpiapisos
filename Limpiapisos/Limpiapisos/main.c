@@ -45,7 +45,8 @@ main(int argc, char * argv[])
 					{
 						simulate_Simulation(simulation);
 						tickCount = get_tickcount_Simulation(simulation); //mostrar por pantalla o como se desea el tickcount
-						printf("%d\n", tickCount);
+						display_TickCount(myAllegro->display, tickCount);	//tira error el set target backbuffer
+						getchar();
 						destroy_Simulation(simulation);
 					}
 

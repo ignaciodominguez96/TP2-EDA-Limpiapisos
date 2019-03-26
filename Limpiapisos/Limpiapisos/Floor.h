@@ -9,7 +9,7 @@
 typedef struct
 {
 	tile_t * tiles;
-	unsigned int height; //no recuerdo si era con static para que no vieran desde afuera
+	unsigned int height; 
 	unsigned int width;
 
 }floor_t;

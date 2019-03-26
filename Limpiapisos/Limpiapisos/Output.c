@@ -39,9 +39,9 @@ allegroStruct_t* allegro_setup(allegroStruct_t* usrAllegro, unsigned int height,
 
 	if (usrAllegro != NULL)
 	{
-		usrAllegro->event_queue = NULL;
 		usrAllegro->display = NULL;
-		usrAllegro->timer = NULL;
+		/*usrAllegro->event_queue = NULL;
+		usrAllegro->timer = NULL;*/
 
 		if (!al_init())//inicio allegro
 		{
@@ -59,7 +59,7 @@ allegroStruct_t* allegro_setup(allegroStruct_t* usrAllegro, unsigned int height,
 		}
 
 
-		usrAllegro->event_queue = al_create_event_queue();
+		/*usrAllegro->event_queue = al_create_event_queue();
 		if (!(usrAllegro->event_queue))//inicio cola de eventos
 		{
 			printf("Could not initialize event queue!.\n");
@@ -67,21 +67,21 @@ allegroStruct_t* allegro_setup(allegroStruct_t* usrAllegro, unsigned int height,
 			return NULL;
 		}
 
-		usrAllegro->timer = al_create_timer(1 / FPS); //FIJARSE POR QUE NO LO RECONOCE (y si conviene 60, esto parece copiado de otro prog)
+		usrAllegro->timer = al_create_timer(1 / FPS);
 		if (!(usrAllegro->timer))//inicio timer IMPORTANTE FUNCIONA  A 60 FPS
 		{
 			printf("Failed to create timer!\n");
 			al_destroy_event_queue(usrAllegro->event_queue);
 			al_destroy_display(usrAllegro->display);
 			return NULL;
-		}
+		}*/
 
 		al_set_window_title(usrAllegro->display, "Limpiapisos");
 
-		al_register_event_source(usrAllegro->event_queue, al_get_display_event_source(usrAllegro->display));
+		/*al_register_event_source(usrAllegro->event_queue, al_get_display_event_source(usrAllegro->display));
 		al_register_event_source(usrAllegro->event_queue, al_get_timer_event_source(usrAllegro->timer));
 
-		al_start_timer(usrAllegro->timer);
+		al_start_timer(usrAllegro->timer);*/
 
 		al_init_image_addon();
 		al_init_font_addon();
@@ -98,10 +98,10 @@ void allegro_destroy(allegroStruct_t* usrAllegro)
 {
 	al_destroy_display(usrAllegro->display);
 	usrAllegro->display = NULL;
-	al_destroy_timer(usrAllegro->timer);
+	/*al_destroy_timer(usrAllegro->timer);
 	usrAllegro->timer = NULL;
 	al_destroy_event_queue(usrAllegro->event_queue);
-	usrAllegro->event_queue = NULL;
+	usrAllegro->event_queue = NULL;*/
 	free(usrAllegro);
 	usrAllegro = NULL;
 
@@ -109,6 +109,18 @@ void allegro_destroy(allegroStruct_t* usrAllegro)
 	al_shutdown_ttf_addon();
 	al_shutdown_primitives_addon();
 	al_shutdown_image_addon();
+}
+
+void display_TickCount(ALLEGRO_DISPLAY* display, unsigned int tickCount)
+{
+	ALLEGRO_FONT* font = al_load_ttf_font(HISTOGRAM_FILE_FONT, UNITY_FONT_LETTER, 0);
+	if (font != NULL);
+	{
+		al_set_target_backbuffer(display);
+		al_draw_textf(font, al_color_name(HISTOGRAM_COLOR_FONT), UNITY_FONT_SPACE / 2.0, UNITY_FONT_SPACE / 2.0, ALLEGRO_ALIGN_CENTER, "%d", tickCount);
+		al_flip_display();
+		al_destroy_font(font);
+	}
 }
 
 void update_display_Output(floor_t * floor, robot_t * robots, unsigned int cant_robots, images_t* images)
@@ -243,18 +255,18 @@ void update_tiles_Output(floor_t * floor, image_tiles_t * images_tiles)
 		for (unsigned int j = 0; j < width; j++)
 		{
 
-			is_clean_tile = is_clean_Tile((floor->tiles) + i + j * width);
+			is_clean_tile = is_clean_Tile((floor->tiles) + j + i * width);
 			//	position = getPisoLocation(baldosas, i, j);
 
 				//#error "creo que no es necesario"
 
 			if (is_clean_tile == true)
 			{
-				al_draw_bitmap(images_tiles->image_tile_clean, i*UNITY_TILE, j*UNITY_TILE, 0); //dibuja la baldosa limpia.
+				al_draw_bitmap(images_tiles->image_tile_clean, j*UNITY_TILE, i*UNITY_TILE, 0); //dibuja la baldosa limpia.
 			}
 			else
 			{
-				al_draw_bitmap(images_tiles->image_tile_dirty, i*UNITY_TILE, j*UNITY_TILE, 0); //dibuja la baldosa sucia.
+				al_draw_bitmap(images_tiles->image_tile_dirty, j*UNITY_TILE, i*UNITY_TILE, 0); //dibuja la baldosa sucia.
 			}
 		}
 

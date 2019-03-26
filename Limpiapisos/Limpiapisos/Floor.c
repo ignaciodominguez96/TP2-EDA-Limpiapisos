@@ -81,7 +81,7 @@ void
 destroy_Floor(floor_t * floor)
 {
 	free(floor->tiles);
-	//floor->tiles = NULL;
+	floor->tiles = NULL;
 	free(floor);
 	floor = NULL;
 

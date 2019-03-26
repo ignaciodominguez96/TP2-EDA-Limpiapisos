@@ -22,9 +22,9 @@
 typedef struct
 {
 
-	ALLEGRO_EVENT_QUEUE *event_queue;
 	ALLEGRO_DISPLAY *display;
-	ALLEGRO_TIMER *timer;
+	/*ALLEGRO_EVENT_QUEUE *event_queue;
+	ALLEGRO_TIMER *timer;*/
 
 }allegroStruct_t;
 
@@ -32,6 +32,7 @@ typedef struct
 
 allegroStruct_t* allegro_setup(allegroStruct_t* usrAllegro, unsigned int height, unsigned int width);
 void allegro_destroy(allegroStruct_t* usrAllegro);
+void display_TickCount(unsigned int tickCount);
 void update_display_Output(floor_t * floor, robot_t * robots, unsigned int cant_robots, images_t* images);
 bool print_histogram_Output(ALLEGRO_DISPLAY* display, unsigned int cant_simulations, unsigned long* tick_per_simulation);
 
