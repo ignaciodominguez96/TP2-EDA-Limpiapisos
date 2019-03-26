@@ -112,7 +112,7 @@ main(int argc, char * argv[])
 					}
 					bool can_i_print = false;
 						
-					al_resize_display(myAllegro->display, 1000.0, 1200.0);
+					al_resize_display(myAllegro->display, 1600.0, 1200.0);
 					print_histogram_Output(robot_count - 1, histogram, myAllegro->display, "Robots", "Tiempo");
 					al_set_new_window_position(0.0, 0.0);
 					al_flip_display();

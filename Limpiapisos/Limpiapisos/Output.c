@@ -107,14 +107,14 @@ void update_display_Output(floor_t * floor, robot_t * robots, unsigned int cant_
 
 void print_histogram_Output(unsigned int cant_robots, double * results,  ALLEGRO_DISPLAY * display, char * axis_name_x, char *  axis_name_y)
 {
-
+	al_clear_to_color(al_color_name(HISTOGRAM_COLOR_BACK));
 
 	axis_t * axis = create_axis(al_get_display_width(display), al_get_display_height(display), (double)cant_robots, results[0], axis_name_x, axis_name_y);
 	print_axis(axis);
 
 
-	ALLEGRO_COLOR color1 = al_color_name(HISOGRAM_COLOR_BAR);
-	ALLEGRO_COLOR color2 = al_color_name(HISTOGRAM_COLOR_REFERENCE);
+	ALLEGRO_COLOR color1 = al_color_name(HISTOGRAM_COLOR_BAR);
+	ALLEGRO_COLOR color2 = al_color_name("blue");
 	ALLEGRO_COLOR color_font = al_color_name(HISTOGRAM_COLOR_FONT);
 
 
@@ -122,41 +122,19 @@ void print_histogram_Output(unsigned int cant_robots, double * results,  ALLEGRO
 
 
 	double x = 0.0, y = 0.0;
-	bool tolerance_reached = false;
-	bool can_i_write = false;
-
-	if (axis->max_x > TOLERANCE_FONT_ROBOT)
-	{
-		tolerance_reached = true;
-	}
-
 
 	for (int i = 0; i < axis->max_x; i++)
 	{
 		x = axis->space_x + (axis->el_scale_x * (i + 1));
 		y = axis->space_y + (axis->el_scale_y * (axis->max_y - results[i]));
-		switch (i & 1)
-		{
-		case 1: al_draw_filled_rectangle(x - OFFSET_HISTOGRAM, y, x + OFFSET_HISTOGRAM, axis->origin_x, color1); break;
-		case 0: al_draw_filled_rectangle(x - OFFSET_HISTOGRAM, y, x + OFFSET_HISTOGRAM, axis->origin_y, color2);
-		}
-		if (tolerance_reached)
-		{
-			if ((i == 0) || (i == 1) || (i == 2) || (i == 3) || ((i + 1) >= axis->max_x))
-			{
-				can_i_write = true;
-			}
-		}
-		else
-		{
-			can_i_write = true;
-		}
-		if (can_i_write)
-		{
-			al_draw_textf(font, color_font, x - OFFSET_HISTOGRAM, y - (OFFSET_HISTOGRAM * 2), 0, "%.1f", results[i]);
-			can_i_write = false;
-		}
+		
+		
+		al_draw_filled_rectangle(x - OFFSET_HISTOGRAM, y, x + OFFSET_HISTOGRAM, axis->origin_y, color1);
+		
+		
 
+		al_draw_textf(font, color_font, x - OFFSET_HISTOGRAM, y - (OFFSET_HISTOGRAM * 2), 0, "%.1f", results[i]);
+		
 	}
 	al_flip_display();
 

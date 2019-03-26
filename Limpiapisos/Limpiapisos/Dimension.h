@@ -25,7 +25,7 @@
 #define OFFSET_AXIS_INDICATOR 3
 #define SEPARATION_AXIS_Y 4
 
-#define THICKNESS_AXIS 2
+#define THICKNESS_AXIS 1.0
 
 
 
