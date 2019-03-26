@@ -24,7 +24,7 @@ double randDoubleBetween(double a, double b)
 //Cambia la seed. Ejecutar una sola vez antes de utilizar caulquier funcion de la libreria.
 void randomize()
 {
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 }
 
 //Dado un arreglo de ints, los mezcla de manera aleatoria.

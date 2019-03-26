@@ -14,7 +14,7 @@
 #define REFACTOR_HISTOGRAM_TICK_SPACE	(1/11.0)
 #define REFACTOR_HISTOGRAM_TICK_PER_SPACE	(1/10.0)
 
-#define	HISTOGRAM_FILE_FONT	"../Fonts/Starjedi.ttf"
+#define	HISTOGRAM_FILE_FONT	"Starjedi.ttf"
 #define HISOGRAM_COLOR_BAR	"green"
 #define	HISTOGRAM_COLOR_FONT	"hotpink"
 #define HISTOGRAM_COLOR_BACK "black"
@@ -79,6 +79,11 @@ allegroStruct_t* allegro_setup(allegroStruct_t* usrAllegro)
 
 		al_start_timer(usrAllegro->timer);
 
+		al_init_image_addon();
+		al_init_font_addon();
+		al_init_primitives_addon();
+		al_init_ttf_addon();
+
 	}
 
 	return usrAllegro;
@@ -95,6 +100,11 @@ void allegro_destroy(allegroStruct_t* usrAllegro)
 	usrAllegro->event_queue = NULL;
 	free(usrAllegro);
 	usrAllegro = NULL;
+
+	al_shutdown_font_addon();
+	al_shutdown_ttf_addon();
+	al_shutdown_primitives_addon();
+	al_shutdown_image_addon();
 }
 
 void update_display_Output(floor_t * floor, robot_t * robots, unsigned int cant_robots, images_t* images)

@@ -12,7 +12,7 @@ resize_image(char* image_name, int resize_x, int resize_y);
 images_t * 
 create_images(void)
 {
-	images_t* images = malloc(sizeof(images_t));
+	images_t* images = (images_t *)malloc(sizeof(images_t));
 
 	if (images == NULL)
 	{
@@ -50,8 +50,8 @@ create_images(void)
 	}
 
 	
-	(images->images_tiles)->image_tile_clean = image_tile_clean;
-	(images->images_tiles)->image_tile_dirty = image_tile_dirty;
+	((images->images_tiles)->image_tile_clean) = image_tile_clean;
+	((images->images_tiles)->image_tile_dirty) = image_tile_dirty;
 	images->image_robot = image_robot;
 
 

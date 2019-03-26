@@ -19,7 +19,7 @@ create_Floor(unsigned int height, unsigned int width)
 
 		if (floor->tiles != NULL)
 		{
-			for (int i = 0; i < height*width; i++)
+			for (unsigned int i = 0; i < (height*width); i++)
 			{
 				mess_Tile( floor->tiles + i);
 			}
@@ -61,7 +61,7 @@ is_clear_Floor(floor_t * floor)
 	unsigned int height = get_height_Floor(floor);
 	unsigned int width = get_width_Floor(floor);
 
-	for (int i = 0; i < height*width; i++)
+	for (unsigned int i = 0; i < (height*width); i++)
 	{
 		bool aux = is_dirty_Tile(floor->tiles + i);
 

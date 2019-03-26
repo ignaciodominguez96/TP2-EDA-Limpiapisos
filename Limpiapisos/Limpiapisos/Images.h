@@ -8,9 +8,9 @@
 #include <allegro5\allegro.h>
 #include <allegro5\allegro_image.h>
 
-#define ROOT_IMAGE_TILE_CLEAN "../Imagenes/limpio2.png"
-#define ROOT_IMAGE_TILE_DIRTY "../Imagenes/dirtytile.png"
-#define ROOT_IMAGE_ROBOT "../Imagenes/robot.png"
+#define ROOT_IMAGE_TILE_CLEAN "limpio2.png"
+#define ROOT_IMAGE_TILE_DIRTY "dirtytile.png"
+#define ROOT_IMAGE_ROBOT "robot.png"
 
 
 

@@ -70,7 +70,9 @@ int getUserData(userData_t* userData, data_t field)
 	case MODE:
 		return userData->mode;
 		break;
-	}
+	
+	default: return -1;  break;
+	} 
 }
 
 bool isDataFull(userData_t* data)
