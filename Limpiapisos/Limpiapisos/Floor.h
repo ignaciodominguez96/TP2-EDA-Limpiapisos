@@ -29,7 +29,7 @@ el cual se debe destruir cuando no se lo utilice mas
 unsigned int get_height_Floor(floor_t * floor);
 /*
 
-Se obtiene el alto del piso que se le paso por parametros
+Se obtiene el alto del piso que se le pasa por parametros
 
 */
 
@@ -37,7 +37,7 @@ Se obtiene el alto del piso que se le paso por parametros
 unsigned int get_width_Floor(floor_t * floor);
 /*
 
-Se obtiene el ancho del piso que se le paso por parametros
+Se obtiene el ancho del piso que se le pasa por parametros
 
 */
 

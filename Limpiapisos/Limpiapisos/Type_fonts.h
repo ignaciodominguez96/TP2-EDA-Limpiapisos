@@ -4,9 +4,9 @@
 #define TYPE_FONTS_H
 
 
-#define	HISTOGRAM_FILE_FONT	"Starjedi.ttf"
+#define	HISTOGRAM_FILE_FONT	"Starjedi.ttf"		//puntero al archivo que contiene el font a utilizar para los puntos/datos del histograma
 
-#define AXIS_FILE_FONT	"Starjedi.ttf"
+#define AXIS_FILE_FONT	"Starjedi.ttf"			//puntero al archivo que contiene el font a utilizar para los ejes
 
 
 
