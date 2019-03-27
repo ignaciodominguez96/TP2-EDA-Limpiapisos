@@ -6,9 +6,9 @@
 
 
 #define HISTOGRAM_COLOR_BAR	"green"
-#define HISTOGRAM_COLOR_BACK "white"
+#define HISTOGRAM_COLOR_BACK "grey"
 #define	HISTOGRAM_COLOR_AXIS	"white"
-#define HISTOGRAM_COLOR_FONT "red"
+#define HISTOGRAM_COLOR_FONT "blue"
 
 
 #define VECTOR_COLOR "black"
