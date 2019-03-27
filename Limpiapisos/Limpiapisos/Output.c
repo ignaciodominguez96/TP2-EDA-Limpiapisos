@@ -103,7 +103,7 @@ void update_display_Output(floor_t * floor, robot_t * robots, unsigned int cant_
 
 
 
-//#error "cambiar nombre variables"
+
 
 void print_histogram_Output(unsigned int cant_robots, double * results,  ALLEGRO_DISPLAY * display, char * axis_name_x, char *  axis_name_y)
 {
@@ -113,8 +113,7 @@ void print_histogram_Output(unsigned int cant_robots, double * results,  ALLEGRO
 	print_axis(axis);
 
 
-	ALLEGRO_COLOR color1 = al_color_name(HISTOGRAM_COLOR_BAR);
-	ALLEGRO_COLOR color2 = al_color_name("blue");
+	ALLEGRO_COLOR color = al_color_name(HISTOGRAM_COLOR_BAR);
 	ALLEGRO_COLOR color_font = al_color_name(HISTOGRAM_COLOR_FONT);
 
 
@@ -129,8 +128,7 @@ void print_histogram_Output(unsigned int cant_robots, double * results,  ALLEGRO
 		y = axis->space_y + (axis->el_scale_y * (axis->max_y - results[i]));
 		
 		
-		al_draw_filled_rectangle(x - OFFSET_HISTOGRAM, y, x + OFFSET_HISTOGRAM, axis->origin_y, color1);
-		
+		al_draw_filled_rectangle(x - OFFSET_HISTOGRAM, y, x + OFFSET_HISTOGRAM, axis->origin_y, color);
 		
 
 		al_draw_textf(font, color_font, x - OFFSET_HISTOGRAM, y - (OFFSET_HISTOGRAM * 2), 0, "%.1f", results[i]);
