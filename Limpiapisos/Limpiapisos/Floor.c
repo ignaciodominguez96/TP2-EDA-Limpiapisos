@@ -54,10 +54,9 @@ get_width_Floor(floor_t * floor)
 bool * get_tile(floor_t* floor, int posx, int posy)
 {
 	bool * tile = NULL;
-	if ((posx < get_width_Floor(floor)) && (posy < get_height_Floor(floor)))
-	{
-		tile = ((floor->tiles) + posy * (get_width_Floor(floor)) + posx);
-	}
+	
+	tile = ((floor->tiles) + posy * (get_width_Floor(floor)) + posx);
+	
 
 	return tile;
 
