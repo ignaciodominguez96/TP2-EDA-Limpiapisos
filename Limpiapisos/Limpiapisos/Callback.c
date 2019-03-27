@@ -4,7 +4,7 @@
 #include "Callback.h"
 #include "UserData.h"
 
-int parseCallBack(const char* key, const char* value, void* userData)
+int parseCallBack(const char* key, const char* value, void* userData) //chequea si los datos ingresados por la linea de comandos son validos
 {
 	int tempValue = atoi(value);
 	userData_t* myData = (userData_t*)userData;
@@ -12,7 +12,7 @@ int parseCallBack(const char* key, const char* value, void* userData)
 	//checking if option is valid
 	if (key != NULL) //es opcion
 	{
-		if (!strcmp(key, "height") && 0 < tempValue && tempValue <= 70)
+		if (!strcmp(key, "height") && 0 < tempValue && tempValue <= 70) //altura del piso
 		{
 			if (!setUserData(myData, HEIGHT, tempValue))
 			{
@@ -20,7 +20,7 @@ int parseCallBack(const char* key, const char* value, void* userData)
 				return CB_ERR;
 			}
 		}
-		else if (!strcmp(key, "width") && 0 < tempValue && tempValue <= 100)
+		else if (!strcmp(key, "width") && 0 < tempValue && tempValue <= 100)//ancho del piso
 		{
 			if (!setUserData(myData, WIDTH, tempValue))
 			{
@@ -28,7 +28,7 @@ int parseCallBack(const char* key, const char* value, void* userData)
 				return CB_ERR;
 			}
 		}
-		else if (!strcmp(key, "robots") && 0 < tempValue)
+		else if (!strcmp(key, "robots") && 0 < tempValue)//cantidad de robots
 		{
 			if (!setUserData(myData, ROBOTC, tempValue))
 			{
@@ -36,7 +36,7 @@ int parseCallBack(const char* key, const char* value, void* userData)
 				return CB_ERR;
 			}
 		}
-		else if (!strcmp(key, "mode") && (tempValue == 1 || tempValue == 2))
+		else if (!strcmp(key, "mode") && (tempValue == 1 || tempValue == 2))//modo
 		{
 			if (!setUserData(myData, MODE, tempValue))
 			{
@@ -57,5 +57,5 @@ int parseCallBack(const char* key, const char* value, void* userData)
 		return CB_ERR;
 	}
 
-	return CB_SUXS;
+	return CB_SUXS; //devuelve 1 si ingreso bien los datos y 0 si los ingreso mal
 }
