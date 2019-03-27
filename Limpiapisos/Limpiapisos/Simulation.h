@@ -14,7 +14,7 @@
 
 typedef struct
 {
-	robot_t	* robots; //en principio lo dejamos comentado hasta ver si hace falta
+	robot_t	* robots;
 	unsigned int cant_robots;
 	floor_t * floor;
 	unsigned int mode;

@@ -162,9 +162,7 @@ void update_tiles_Output(floor_t * floor, image_tiles_t * images_tiles)
 		{
 
 			is_clean_tile = is_clean_Tile((floor->tiles) + j + i * width);
-			//	position = getPisoLocation(baldosas, i, j);
-
-				//#error "creo que no es necesario"
+			
 
 			if (is_clean_tile == true)
 			{
@@ -190,8 +188,7 @@ void update_robots_Output(robot_t* robots, unsigned int cant_robots, ALLEGRO_BIT
 	position_t vector_vertex_head2; //la cabeza del vector.
 	position_t vector_vertex_head3;
 
-	//unsigned int unit = (robots->unit);
-	//#error "creo que no es necesario"
+	
 
 	double angle = 0.0;
 

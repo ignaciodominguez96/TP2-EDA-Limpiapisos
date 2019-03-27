@@ -6,17 +6,6 @@
 
 #include	<stdbool.h>
 
-/*
-
-typedef	struct
-{
-	bool state;
-
-} tile_t;
-
-*/
-
-
 
 void	wash_Tile(bool* tile);
 void	mess_Tile(bool* tile);

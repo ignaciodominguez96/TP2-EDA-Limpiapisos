@@ -18,7 +18,7 @@ simulation_t * create_Simulation(unsigned int cant_robots, unsigned int height, 
 				newSim->cant_robots = cant_robots;
 				newSim->mode = mode;
 				newSim->floor = tempFloor;
-				newSim->tickcount = 0; //por las dudas se inicializa en 0 para evitar basura del heap
+				newSim->tickcount = 0; 
 				newSim->usrAllegro = usrAllegro;
 
 

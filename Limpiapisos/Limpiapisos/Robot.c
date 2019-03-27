@@ -12,7 +12,6 @@
 
 //DECLARACION DE FUNCIONES AUXILIARES
 static bool	move_Robot(robot_t * robot, unsigned int pos_lim_x, unsigned int pos_lim_y);
-//ver si conviene que devuelva otra cosa y/o reciba mas parametros
 static void changedir_Robot(robot_t* robot);
 
 
@@ -96,7 +95,6 @@ move_Robot(robot_t * robot, unsigned int pos_lim_x, unsigned int pos_lim_y)
 
 	bool can_i_move_Robot = false;
 
-//#error "chequear si esta bien lo de lo mover con los angulos"
 
 	double pos_aux_x = robot->pos.x + cos(DEGREES_TO_RAD(robot->angle - SHIFT_ANGLE_X));
 	double pos_aux_y = robot->pos.y + sin(DEGREES_TO_RAD(robot->angle - SHIFT_ANGLE_Y));

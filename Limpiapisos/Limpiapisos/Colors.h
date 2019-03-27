@@ -5,15 +5,14 @@
 #define COLORS_H
 
 
-#define HISTOGRAM_COLOR_BAR	"green"
-#define HISTOGRAM_COLOR_BACK "grey"
-#define	HISTOGRAM_COLOR_AXIS	"white"
-#define HISTOGRAM_COLOR_FONT "blue"
+#define HISTOGRAM_COLOR_BAR	 "green"			//color de las barras del histograma
+#define HISTOGRAM_COLOR_BACK "grey"	  		    //color del fondo del histograma		  
+#define HISTOGRAM_COLOR_FONT "blue"			    //color de las letras del histograma
 
 
-#define VECTOR_COLOR "black"
+#define VECTOR_COLOR "black"					//color del vector de los robots
 
-#define	AXIS_COLOR_FONT	"red"
+#define	AXIS_COLOR_FONT	"red"					//color de los ejes
 
 
 #endif // COLORS_H
