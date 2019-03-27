@@ -10,6 +10,7 @@
 #include "UserData.h"
 #include "Random.h"
 #include "Output.h"
+#include "Dimension.h"
 
 #define HISTOGRAM_SIZE 500
 #define CONDICION_DE_STOP ((robot_count > 2) && ((histogram[robot_count-2])-(histogram[robot_count-1])) < 0.1)
@@ -109,11 +110,11 @@ main(int argc, char * argv[])
 					}
 					bool can_i_print = false;
 						
-					al_resize_display(myAllegro->display, 1600.0, 1200.0);
+					al_resize_display(myAllegro->display, SCREEN_WIDTH_HISTOGRAM, SCREEN_HEIGHT_HISTOGRAM);
 					print_histogram_Output(robot_count - 1, histogram, myAllegro->display, "Robots", "Tiempo");
 					al_set_new_window_position(0.0, 0.0);
 					al_flip_display();
-					getchar();
+					getchar();				//permite visualizar el histograma y recibir un 'enter' para terminar el programa
 
 				}
 

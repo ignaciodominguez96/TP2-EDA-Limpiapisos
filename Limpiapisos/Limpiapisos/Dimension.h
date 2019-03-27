@@ -18,6 +18,9 @@
 #define OFFSET_HISTOGRAM 8								
 #define FONT_SIZE_HISTOGRAM (OFFSET_HISTOGRAM)			//cantidad de pixeles por letra o numero en la escritura en el histograma (sobre los puntos)
 
+#define SCREEN_HEIGHT_HISTOGRAM 1200.0					//nuevo alto y ancho de pantalla para mejor visualizacion del histograma 
+#define SCREEN_WIDTH_HISTOGRAM 1600.0
+
 #define FONT_SIZE_AXIS	(FONT_SIZE_HISTOGRAM*(1.1))		//cantidad de pixeles por letra o numero en la escritura en los ejes
 
 #define OFFSET_AXIS (0.1)								
