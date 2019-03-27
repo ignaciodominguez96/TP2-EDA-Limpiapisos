@@ -130,8 +130,12 @@ void print_histogram_Output(unsigned int cant_robots, double * results,  ALLEGRO
 		
 		al_draw_filled_rectangle(x - OFFSET_HISTOGRAM, y, x + OFFSET_HISTOGRAM, axis->origin_y, color);
 		
+		if ((i<=3) || ((i + 2) >= axis->max_x)) //dibujo los primeros cuatro y los ultimos dos (numeros arribas de la barra
+		{
+			al_draw_textf(font, color_font, x - OFFSET_HISTOGRAM, y - (OFFSET_HISTOGRAM * 2), 0, "%.1f", results[i]);
 
-		al_draw_textf(font, color_font, x - OFFSET_HISTOGRAM, y - (OFFSET_HISTOGRAM * 2), 0, "%.1f", results[i]);
+		}
+		
 		
 	}
 	al_flip_display();

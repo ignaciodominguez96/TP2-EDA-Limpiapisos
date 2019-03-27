@@ -106,9 +106,6 @@ main(int argc, char * argv[])
 							mode_2_finish = true;
 						}
 
-
-
-						printf("Robot Count: %d ---- Tickcount expected : %f\n", robot_count , histogram[robot_count - 1]);
 					}
 					bool can_i_print = false;
 						
