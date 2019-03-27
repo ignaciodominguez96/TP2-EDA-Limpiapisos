@@ -31,7 +31,15 @@
 	obtenidos, habiendo obtenido de esta forma la "cantidad ideal" de robots para limpiar un piso
 	con las dimensiones determinadas por el usuario.
 	Es necesario ingresar un 'enter' desde la consola para finalizar el programa.
-	************************************************************************************************/
+	***********************************************************************************************
+	
+	Grupo 3:
+
+	- Ignacio Dominguez
+	- Sebastian Nahuel Rossi
+	- Pablo Smolkin
+	
+	***********************************************************************************************/
 
 
 
