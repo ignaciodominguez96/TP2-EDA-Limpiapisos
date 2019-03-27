@@ -47,6 +47,7 @@ int parseCallBack(const char* key, const char* value, void* userData) //chequea 
 		else //option not valid
 		{
 			printf("%s\n", "Invalid Option");
+			getchar();				//pemite que el usuario visualize su codigo de error
 			return CB_ERR;
 		}
 	}
@@ -54,6 +55,7 @@ int parseCallBack(const char* key, const char* value, void* userData) //chequea 
 	else
 	{
 		printf("%s\n", "This program does not accept parameters. Invalid input");
+		getchar();		//pemite que el usuario visualize su codigo de error
 		return CB_ERR;
 	}
 

@@ -1,3 +1,25 @@
+/*
+
+	main.c
+						Limpiapisos
+
+	Este programa simula un piso siendo limpiado por robots. El mismo dispone de dos modos:
+	******************************************************************************************
+	MODO 1:
+	El usuario debe ingresar por linea de comandos los siguientes datos para condicionar
+	la ejecucion del programa:
+
+	- La cantidad de robots. Esta cantidad se mantendra fija a lo largo de la simulacion
+	y debe ser ingresada de la siguiente manera: -robots x donde 'x' es una cantidad positiva.
+
+
+
+
+*/
+
+
+
+
 #pragma once
 
 #include <stdlib.h>
@@ -27,7 +49,7 @@ main(int argc, char * argv[])
 
 	if (myData != NULL)
 	{
-		if ((parseCmdLine(argc, argv, parseCallBack, myData) == 4) && isDataFull(myData)) //Igualado a la cantidad de opciones requeridas. En modo2 podrian ser 3
+		if ((parseCmdLine(argc, argv, parseCallBack, myData) == 4) && isDataFull(myData)) //Igualado a la cantidad de opciones requeridas.
 		{
 			allegroStruct_t* myAllegro = NULL;
 			myAllegro = allegro_setup(myAllegro, myData->height, myData->width);
@@ -124,6 +146,23 @@ main(int argc, char * argv[])
 
 
 			destroyUserData(myData);
+		}
+
+		else
+		{
+
+			if(!(isDataFull(myData)))
+			{
+				destroyUserData(myData);
+				printf("Input Error: One or more necessary options haven't been entered\n");
+				getchar();
+			}
+			else
+			{
+				destroyUserData(myData);
+				printf("Input Error: The number of options entered must be equal to four\n");
+				getchar();
+			}
 		}
 
 	}

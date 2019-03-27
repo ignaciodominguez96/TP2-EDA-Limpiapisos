@@ -4,6 +4,7 @@
 #include "Floor.h"
 
 
+//Funcion que crea la estructura piso, guardando en memoria la misma
 floor_t *
 create_Floor(unsigned int height, unsigned int width)
 {
@@ -39,18 +40,21 @@ create_Floor(unsigned int height, unsigned int width)
 
 }
 
+//Se obtiene el alto del piso que se le pasa por parametros
 unsigned int
 get_height_Floor(floor_t * floor)
 {
 	return floor->height;
 }
 
+//Se obtiene el ancho del piso que se le pasa por parametros
 unsigned int
 get_width_Floor(floor_t * floor)
 {
 	return floor->width;
 }
 
+//Se obtiene la baldosa que se encuentra en la posicion x y posicion y (posx y posy) del piso que se le pasa por parametros
 bool * get_tile(floor_t* floor, int posx, int posy)
 {
 	bool * tile = NULL;
@@ -63,6 +67,7 @@ bool * get_tile(floor_t* floor, int posx, int posy)
 	
 }
 
+//Devuelve un bool que indica si el piso que se le pasa por parametros esta limpio o no
 bool
 is_clear_Floor(floor_t * floor)
 {
@@ -85,6 +90,7 @@ is_clear_Floor(floor_t * floor)
 	return is_clear;
 }
 
+//Funcion que destruye la estructura piso que se le pasa por parametros, liberando la memoria guardada para la estructura
 void
 destroy_Floor(floor_t * floor)
 {
