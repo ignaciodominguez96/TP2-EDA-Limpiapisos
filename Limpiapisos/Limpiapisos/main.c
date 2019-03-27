@@ -1,21 +1,37 @@
-/*
+/*************************************************************************************************
 
 	main.c
 						Limpiapisos
 
 	Este programa simula un piso siendo limpiado por robots. El mismo dispone de dos modos:
-	******************************************************************************************
+	***********************************************************************************************
 	MODO 1:
 	El usuario debe ingresar por linea de comandos los siguientes datos para condicionar
 	la ejecucion del programa:
 
+	- El modo. Para iniciar el modo uno es necesario ingresar -mode 1
 	- La cantidad de robots. Esta cantidad se mantendra fija a lo largo de la simulacion
 	y debe ser ingresada de la siguiente manera: -robots x donde 'x' es una cantidad positiva.
+	- El alto del piso. El mismo debe ser un numero positivo con un maximo de 70.
+	Debe ser ingresado como -height x
+	- El ancho del piso. El mismo debe ser un numero positivo con un maximo de 100.
+	Debe ser ingresado como -width x
 
+	En este modo se mostrara una simulacion en pantalla en tiempo real, concluyendo cuando
+	todas las baldosas esten limpias, cuando mostrara el tiempo que ha pasado desde el inicio.
+	Es necesario ingresar un 'enter' desde la consola para finalizar el programa.
+	***********************************************************************************************
+	MODO 2:
 
-
-
-*/
+	Para utilizar el modo 2 es necesario ingresar TODAS las opciones al igual que el modo 1.
+	En este modo, se haran 1000 simulaciones con una cantidad incremental de robots (comenzando
+	en 1) y se obtendra el promedio de tiempo tardado en limpiar el piso para cada cantidad.
+	El proceso concluye cuando la diferencia de tiempo entre una cantidad de robots y la siguiente
+	es menor a 0.1, en cuyo caso se mostrara por pantalla un histograma con todos los valores
+	obtenidos, habiendo obtenido de esta forma la "cantidad ideal" de robots para limpiar un piso
+	con las dimensiones determinadas por el usuario.
+	Es necesario ingresar un 'enter' desde la consola para finalizar el programa.
+	************************************************************************************************/
 
 
 
