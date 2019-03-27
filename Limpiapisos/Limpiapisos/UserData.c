@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "UserData.h"
 
+//esta funcion crea una instancia de la estructura userData y la incializa con la constante EMPTY en cada campo
 userData_t* createUserData()
 {
 	userData_t* data = NULL;
@@ -15,6 +16,7 @@ userData_t* createUserData()
 	return data;
 }
 
+//esta funcion modifica el dato seleccionado con el valor recibido por argumento
 bool setUserData(userData_t* userData, data_t field, int value)
 {
 	bool success = false;
@@ -54,6 +56,7 @@ bool setUserData(userData_t* userData, data_t field, int value)
 	return success;
 }
 
+//esta funcion devuelve el dato especificado
 int getUserData(userData_t* userData, data_t field)
 {
 	switch (field)
@@ -75,6 +78,7 @@ int getUserData(userData_t* userData, data_t field)
 	} 
 }
 
+//esta funcion devuelve 'true' si todos los datos han sido ingresados exitosamente, 'false' si no
 bool isDataFull(userData_t* data)
 {
 	bool dataFull = true;
@@ -91,6 +95,7 @@ bool isDataFull(userData_t* data)
 	return dataFull;
 }
 
+//esta funcion libera la memoria pedida por la estructura 
 void destroyUserData(userData_t* userData)
 {
 	free(userData);

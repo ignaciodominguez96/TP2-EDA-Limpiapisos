@@ -11,13 +11,12 @@
 #define	UNITY_VECTOR_HEAD	(UNITY_TILE/5.0)			//cantidad de pixeles por la cabeza de vector
 
 #define	UNITY_FONT_SPACE	20							//cantidad de pixeles por ' ' en la escritura
-#define	UNITY_FONT_LETTER	 (UNITY_FONT_SPACE/2.0)		//cantidad de pixeles por letra o numero en la escritura modo 1
+#define	UNITY_FONT_LETTER	 (UNITY_FONT_SPACE/1.0)		//cantidad de pixeles por letra o numero en la escritura modo 1
 
 #define	VECTOR_THICKNESS (UNITY_TILE/20.0)				//grosor del vector del robot
 
 #define OFFSET_HISTOGRAM 8								
 #define FONT_SIZE_HISTOGRAM (OFFSET_HISTOGRAM)			//cantidad de pixeles por letra o numero en la escritura en el histograma (sobre los puntos)
-
 
 #define FONT_SIZE_AXIS	(FONT_SIZE_HISTOGRAM*(1.1))		//cantidad de pixeles por letra o numero en la escritura en los ejes
 

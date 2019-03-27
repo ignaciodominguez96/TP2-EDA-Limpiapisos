@@ -25,8 +25,8 @@
 
 //DECLARACIONES FUNCIONES AUXILIARES
 
-void update_robots_Output(robot_t* robots, unsigned int cant_robots, ALLEGRO_BITMAP* image_robot);
-void update_tiles_Output(floor_t * floor, image_tiles_t * images_tiles);
+static void update_robots_Output(robot_t* robots, unsigned int cant_robots, ALLEGRO_BITMAP* image_robot);
+static void update_tiles_Output(floor_t * floor, image_tiles_t * images_tiles);
 
 
 
@@ -80,7 +80,7 @@ void allegro_destroy(allegroStruct_t* usrAllegro)
 
 void display_TickCount(unsigned int height, unsigned int width, unsigned int tickCount)
 {
-	ALLEGRO_FONT* font = al_load_ttf_font(HISTOGRAM_FILE_FONT, 20.0, 0);
+	ALLEGRO_FONT* font = al_load_ttf_font(HISTOGRAM_FILE_FONT, UNITY_FONT_LETTER, 0);
 	if (font != NULL);
 	{
 		al_clear_to_color(al_color_name("white"));
@@ -178,7 +178,7 @@ void update_tiles_Output(floor_t * floor, image_tiles_t * images_tiles)
 }
 
 
-void update_robots_Output(robot_t* robots, unsigned int cant_robots, ALLEGRO_BITMAP* image_robot)
+static void update_robots_Output(robot_t* robots, unsigned int cant_robots, ALLEGRO_BITMAP* image_robot)
 {
 	double position_x = 0.0;
 	double position_y = 0.0;

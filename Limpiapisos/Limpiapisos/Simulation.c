@@ -2,6 +2,7 @@
 #include <math.h>
 #include "Simulation.h"
 
+//Funcion que crea la estructura simulacion, guardando en memoria la misma
 simulation_t * create_Simulation(unsigned int cant_robots, unsigned int height, unsigned int width, unsigned int mode, allegroStruct_t* usrAllegro)
 {
 	simulation_t* newSim = NULL;
@@ -63,15 +64,16 @@ simulation_t * create_Simulation(unsigned int cant_robots, unsigned int height, 
 	return newSim;
 }
 
+//Funcion que corre la simulacion con las caracteristicas indicadas en la estructura(del cual se tiene el puntero "simulation")
 bool	simulate_Simulation(simulation_t * simulation)
-{
-	while (!(is_clear_Floor(simulation->floor))) //	Cada vez que hay un "tick" tiene que pasar lo siguiente:
+{																			//	Cada vez que hay un "tick" sucede lo siguiente:
+	while (!(is_clear_Floor(simulation->floor))) 
 	{
 		for (unsigned int i = 0; i < simulation->cant_robots; i++)
 		{
 			robot_t* tempRobot = simulation->robots + i;	// Se agarra un robot de los que existan
 			if(simulation->tickcount == 0)
-				wash_Tile(get_tile(simulation->floor, (int)floor(get_Robot_posx(tempRobot)), (int)floor(get_Robot_posy(tempRobot))));
+				wash_Tile(get_tile(simulation->floor, (int)floor(get_Robot_posx(tempRobot)), (int)floor(get_Robot_posy(tempRobot))));	//en caso de ser el primer 'tick', se limpian las baldosas donde empezaron los robots
 			act_Robot(tempRobot, get_width_Floor(simulation->floor), get_height_Floor(simulation->floor));	//	El robot se mueve o cambia de direccion
 			wash_Tile(get_tile(simulation->floor, (int)floor(get_Robot_posx(tempRobot)), (int)floor(get_Robot_posy(tempRobot))));	// Se limpia la baldosa donde este el robot, se haya movido o no
 		}
@@ -92,13 +94,13 @@ bool	simulate_Simulation(simulation_t * simulation)
 	return 0;
 }
 
-
+//Se obtiene el tickcount de la simulacion que se le pasa por parametros
 unsigned int get_tickcount_Simulation(simulation_t * simulation)
 {
 	return simulation->tickcount;
 }
 
-
+//Funcion que destruye la estructura simulacion que se le pasa por parametros, liberando la memoria guardada para la estructura
 void	destroy_Simulation(simulation_t * simulation)
 
 {
